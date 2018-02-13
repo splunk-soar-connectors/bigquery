@@ -32,7 +32,7 @@ import json
 #  __version__ = get_distribution('google-python-module-name').version
 #
 # This will throw an exception, because get_distribution isn't going to be able to find any of those modules
-# This patch fixes. Granted, every file is now going to be __version__ 1.0.0, but that shouldn't cause any problems
+# This patch fixes that. Granted, every file is now going to be __version__ 1.0.0, but that shouldn't cause any problems
 
 import pkg_resources
 
@@ -70,13 +70,7 @@ class BigQueryConnector(BaseConnector):
 
         # Call the BaseConnectors init first
         super(BigQueryConnector, self).__init__()
-
         self._state = None
-
-        # Variable to hold a base_url in case the app makes REST calls
-        # Do note that the app json defines the asset config, so please
-        # modify this as you deem fit.
-        self._base_url = None
 
     def initialize(self):
         self._state = self.load_state()

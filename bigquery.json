@@ -102,7 +102,7 @@
                     "data_path": "action_result.data.*.dataset_id",
                     "data_type": "string",
                     "example_values": [
-                        "phantom_dataset"
+                        "company_dataset"
                     ],
                     "contains": [
                         "bigquery dataset"
@@ -114,7 +114,7 @@
                     "data_path": "action_result.data.*.full_table_id",
                     "data_type": "string",
                     "example_values": [
-                        "phantom-project-513002:phantom_dataset.test_table_1"
+                        "my-company-project-513002:company_dataset.test_table_1"
                     ],
                     "column_name": "Full Table ID",
                     "column_order": 2
@@ -123,7 +123,7 @@
                     "data_path": "action_result.data.*.project_id",
                     "data_type": "string",
                     "example_values": [
-                        "phantom-project-513002"
+                        "my-company-project-513002"
                     ]
                 },
                 {

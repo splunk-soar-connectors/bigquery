@@ -104,7 +104,7 @@ class BigQueryConnector(BaseConnector):
 
         self.save_progress("Making test call to BigQuery...")
         try:
-            client.list_datasets(max_results=1)
+            [x.reference for x in client.list_datasets(max_results=1)]
         except Exception as e:
             self.save_progress("Test Connectivity Failed")
             return action_result.set_status(phantom.APP_ERROR, "Error listing datasets", e)

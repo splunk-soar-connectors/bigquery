@@ -1,0 +1,24 @@
+[submodule "wheels/cachetools"]
+	path = wheels/cachetools
+	url = ssh://git@prod-bb-1.phantom.local:7999/per/cachetools.git
+	ignore = dirty
+[submodule "wheels/uritemplate_wheel"]
+	path = wheels/uritemplate_wheel
+	url = ssh://git@prod-bb-1.phantom.local:7999/per/uritemplate_wheel.git
+	ignore = dirty
+[submodule "wheels/google_bigquery_package_bundle"]
+	path = wheels/google_bigquery_package_bundle
+	url = ssh://git@prod-bb-1.phantom.local:7999/per/google_bigquery_package_bundle.git
+	ignore = dirty
+[submodule "wheels/futures"]
+	path = wheels/futures
+	url = ssh://git@prod-bb-1.phantom.local:7999/per/futures.git
+	ignore = dirty
+[submodule "wheels/rsa_wheel"]
+	path = wheels/rsa_wheel
+	url = ssh://git@prod-bb-1.phantom.local:7999/per/rsa_wheel.git
+	ignore = dirty
+[submodule "wheels/pyasn"]
+	path = wheels/pyasn
+	url = ssh://git@prod-bb-1.phantom.local:7999/per/pyasn.git
+	ignore = dirty

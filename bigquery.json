@@ -1,0 +1,372 @@
+{
+    "appid": "00eb093b-1864-460e-b1a9-c4156b735889",
+    "name": "Big Query",
+    "description": "This app allows running investigative actions against Google BigQuery",
+    "type": "information",
+    "product_vendor": "Google",
+    "logo": "logo_big_query.svg",
+    "logo_dark": "logo_big_query_dark.svg",
+    "product_name": "Big Query",
+    "product_version_regex": ".*",
+    "publisher": "Phantom",
+    "license": "Copyright (c) Phantom Cyber Corporation, 2018",
+    "app_version": "1.0.4",
+    "utctime_updated": "2018-03-21T22:49:04.000000Z",
+    "package_name": "phantom_bigquery",
+    "main_module": "bigquery_connector.pyc",
+    "min_phantom_version": "3.0.284",
+    "app_wizard_version": "1.0.0",
+    "pip_dependencies": {
+        "wheel": [
+            {
+                "module": "pyasn",
+                "input_file": "wheels/pyasn/pyasn1_modules-0.1.1-py2.py3-none-any.whl"
+            },
+            {
+                "module": "rsa",
+                "input_file": "wheels/rsa_wheel/rsa-3.4.2-py2.py3-none-any.whl"
+            },
+            {
+                "module": "cachetools",
+                "input_file": "wheels/cachetools/cachetools-2.0.1-py2.py3-none-any.whl"
+            },
+            {
+                "module": "uritemplate",
+                "input_file": "wheels/uritemplate_wheel/uritemplate-3.0.0-py2.py3-none-any.whl"
+            },
+            {
+                "module": "google_bigquery_package_bundle",
+                "input_file": "wheels/google_bigquery_package_bundle/google_bigquery_package_bundle-0.1.0-py2-none-any.whl"
+            },
+            {
+                "module": "futures",
+                "input_file": "wheels/futures/futures-3.2.0-py2-none-any.whl"
+            }
+        ]
+    },
+    "configuration": {
+        "key_json": {
+            "description": "Contents of Service Account JSON file",
+            "data_type": "password",
+            "required": true,
+            "order": 0
+        }
+    },
+    "actions": [
+        {
+            "action": "test connectivity",
+            "identifier": "test_connectivity",
+            "description": "Validate the asset configuration for connectivity using supplied configuration",
+            "verbose": "",
+            "type": "test",
+            "read_only": true,
+            "parameters": {},
+            "output": [],
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "list tables",
+            "identifier": "list_tables",
+            "description": "List Tables",
+            "verbose": "",
+            "type": "investigate",
+            "read_only": true,
+            "parameters": {
+                "dataset": {
+                    "description": "Only list tables in this dataset",
+                    "data_type": "string",
+                    "contains": [
+                        "bigquery dataset"
+                    ],
+                    "primary": true,
+                    "required": false,
+                    "column_order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.dataset",
+                    "data_type": "string",
+                    "contains": [
+                        "bigquery dataset"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.dataset_id",
+                    "data_type": "string",
+                    "example_values": [
+                        "company_dataset"
+                    ],
+                    "contains": [
+                        "bigquery dataset"
+                    ],
+                    "column_name": "Dataset",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.data.*.full_table_id",
+                    "data_type": "string",
+                    "example_values": [
+                        "my-company-project-513002:company_dataset.test_table_1"
+                    ],
+                    "column_name": "Full Table ID",
+                    "column_order": 2
+                },
+                {
+                    "data_path": "action_result.data.*.project_id",
+                    "data_type": "string",
+                    "example_values": [
+                        "my-company-project-513002"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.table_id",
+                    "data_type": "string",
+                    "example_values": [
+                        "test_table_1"
+                    ],
+                    "column_name": "Table",
+                    "column_order": 1
+                },
+                {
+                    "data_path": "action_result.summary.total_tables",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Successfully listed tables"
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "type": "table"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "get results",
+            "identifier": "get_results",
+            "description": "Get results from a job started with 'run query'",
+            "verbose": "",
+            "type": "investigate",
+            "read_only": true,
+            "parameters": {
+                "job_id": {
+                    "description": "Job ID",
+                    "data_type": "string",
+                    "contains": [
+                        "bigquery job id"
+                    ],
+                    "primary": true,
+                    "required": true,
+                    "column_name": 0
+                },
+                "timeout": {
+                    "description": "How long to wait for results",
+                    "data_type": "numeric",
+                    "required": false,
+                    "order": 1
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "column_name": "status",
+                    "column_order": 2,
+                    "example_values": [
+                        "success"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.job_id",
+                    "data_type": "string",
+                    "contains": [
+                        "bigquery job id"
+                    ],
+                    "example_values": [
+                        "5a9e1de5-342d-4be8-a1e4-93aff49174ff"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.timeout",
+                    "data_type": "numeric",
+                    "example_values": [
+                        30
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.job_id",
+                    "data_type": "string",
+                    "contains": [
+                        "bigquery job id"
+                    ],
+                    "example_values": [
+                        "5a9e1de5-342d-4be8-a1e4-93aff49174ff"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.num_rows",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1000
+                    ]
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Successfully retrieved results from Query"
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "type": "custom",
+                "view": "bigquery_view.display_query_results"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "run query",
+            "identifier": "run_query",
+            "description": "Run a Query",
+            "verbose": "",
+            "type": "investigate",
+            "read_only": false,
+            "parameters": {
+                "query": {
+                    "description": "Query to run",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": true,
+                    "contains": [
+                        "bigquery query"
+                    ],
+                    "order": 0
+                },
+                "timeout": {
+                    "description": "How long to wait for results",
+                    "data_type": "numeric",
+                    "required": false,
+                    "order": 1
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "column_name": "status",
+                    "column_order": 2,
+                    "example_values": [
+                        "success"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.query",
+                    "data_type": "string",
+                    "contains": [
+                        "bigquery query"
+                    ],
+                    "example_values": [
+                        "SELECT  weight_pounds, state, year, gestation_weeks FROM  `bigquery-public-data.samples.natality` LIMIT 1000;"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.timeout",
+                    "data_type": "numeric",
+                    "example_values": [
+                        "1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.job_id",
+                    "data_type": "string",
+                    "contains": [
+                        "bigquery job id"
+                    ],
+                    "example_values": [
+                        "5a9e1de5-342d-4be8-a1e4-93aff49174ff"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.num_rows",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1000
+                    ]
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Successfully retrieved results from Query"
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "type": "custom",
+                "view": "bigquery_view.display_query_results"
+            },
+            "versions": "EQ(*)"
+        }
+    ]
+}

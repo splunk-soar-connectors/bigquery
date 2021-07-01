@@ -6,14 +6,6 @@
 	path = wheels/uritemplate_wheel
 	url = git@cd.splunkdev.com:phantom-external/uritemplate_wheel.git
 	ignore = dirty
-[submodule "wheels/google_bigquery_package_bundle"]
-	path = wheels/google_bigquery_package_bundle
-	url = git@cd.splunkdev.com:phantom-external/google_bigquery_package_bundle.git
-	ignore = dirty
-[submodule "wheels/futures"]
-	path = wheels/futures
-	url = git@cd.splunkdev.com:phantom-external/futures.git
-	ignore = dirty
 [submodule "wheels/rsa_wheel"]
 	path = wheels/rsa_wheel
 	url = git@cd.splunkdev.com:phantom-external/rsa_wheel.git

@@ -6,10 +6,6 @@
 	path = wheels/uritemplate_wheel
 	url = git@cd.splunkdev.com:phantom-external/uritemplate_wheel.git
 	ignore = dirty
-[submodule "wheels/rsa_wheel"]
-	path = wheels/rsa_wheel
-	url = git@cd.splunkdev.com:phantom-external/rsa_wheel.git
-	ignore = dirty
 [submodule "wheels/pyasn"]
 	path = wheels/pyasn
 	url = git@cd.splunkdev.com:phantom-external/pyasn.git

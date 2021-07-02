@@ -1,5 +1,5 @@
 pyasn==0.1.1
-rsa==3.4.2
+rsa==4.7.2
 cachetools==2.0.1
 uritemplate==3.0.0
 google_bigquery_package_bundle==0.1.0

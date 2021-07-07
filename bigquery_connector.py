@@ -68,6 +68,13 @@ class BigQueryConnector(BaseConnector):
         # Call the BaseConnectors init first
         super(BigQueryConnector, self).__init__()
         self._state = None
+    
+    def is_positive_non_zero_int(self, value):
+        try:
+            value = int(value)
+            return True if value > 0 else False
+        except Exception:
+            return False
 
     def initialize(self):
         self._state = self.load_state()
@@ -171,8 +178,8 @@ class BigQueryConnector(BaseConnector):
         action_result = self.add_action_result(ActionResult(dict(param)))
         job_id = param['job_id']
         timeout = param.get('timeout')
-        if timeout:
-            timeout = int(timeout)
+        if not (timeout is None or self.is_positive_non_zero_int(timeout)):
+            return action_result.set_status(phantom.APP_ERROR, 'Please provide a positive integer in timeout')
 
         try:
             client = self._create_client()
@@ -187,8 +194,8 @@ class BigQueryConnector(BaseConnector):
         action_result = self.add_action_result(ActionResult(dict(param)))
         query = param['query']
         timeout = param.get('timeout')
-        if timeout:
-            timeout = int(timeout)
+        if not (timeout is None or self.is_positive_non_zero_int(timeout)):
+            return action_result.set_status(phantom.APP_ERROR, 'Please provide a positive integer in timeout')
 
         try:
             client = self._create_client()

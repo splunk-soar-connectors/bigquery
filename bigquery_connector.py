@@ -154,9 +154,13 @@ class BigQueryConnector(BaseConnector):
         except Exception as e:
             return action_result.set_status(phantom.APP_ERROR, "Error getting results from query", e)
 
-        for row in result:
-            action_result.add_data(dict(row))
+        try:
+            for row in result:
+                action_result.add_data(dict(row))
+        except:
+            pass
 
+        self.debug_print("h6")
         action_result.update_summary({
             'num_rows': action_result.get_data_size(),
         })

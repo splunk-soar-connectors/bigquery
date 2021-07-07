@@ -169,9 +169,9 @@ class BigQueryConnector(BaseConnector):
         except:
             pass
 
-        self.debug_print("h6")
         action_result.update_summary({
             'num_rows': action_result.get_data_size(),
+            'job_id': query_job.job_id
         })
 
         return action_result.set_status(phantom.APP_SUCCESS, "Successfully retrieved results from Query")

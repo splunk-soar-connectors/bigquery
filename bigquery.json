@@ -15,7 +15,9 @@
     "package_name": "phantom_bigquery",
     "main_module": "bigquery_connector.py",
     "min_phantom_version": "4.9.39220",
-    "latest_tested_versions": [],
+    "latest_tested_versions": [
+        "Cloud, tested on July 8, 2021"
+    ],
     "python_version": "3",
     "app_wizard_version": "1.0.0",
     "pip_dependencies": {

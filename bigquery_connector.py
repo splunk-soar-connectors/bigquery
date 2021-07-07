@@ -135,15 +135,17 @@ class BigQueryConnector(BaseConnector):
                 dataset_ref_list = [x.reference for x in client.list_datasets()]
             except Exception as e:
                 return action_result.set_status(phantom.APP_ERROR, "Error creating a list of datasets", e)
-
-        for dataset_ref in dataset_ref_list:
-            for table in client.list_tables(dataset_ref):
-                action_result.add_data({
-                    'table_id': table.table_id,
-                    'dataset_id': dataset_ref.dataset_id,
-                    'project_id': dataset_ref.project,
-                    'full_table_id': table.full_table_id,
-                })
+        try:
+            for dataset_ref in dataset_ref_list:
+                for table in client.list_tables(dataset_ref):
+                    action_result.add_data({
+                        'table_id': table.table_id,
+                        'dataset_id': dataset_ref.dataset_id,
+                        'project_id': dataset_ref.project,
+                        'full_table_id': table.full_table_id,
+                    })
+        except Exception as e:
+            return action_result.set_status(phantom.APP_ERROR, "Error listing dataset", e)
 
         action_result.update_summary({'total_tables': action_result.get_data_size()})
 
@@ -186,7 +188,10 @@ class BigQueryConnector(BaseConnector):
         except Exception as e:
             return action_result.set_status(phantom.APP_ERROR, "Error creating client", e)
 
-        query_job = client.get_job(job_id)
+        try:
+            query_job = client.get_job(job_id)
+        except Exception as e:
+            return action_result.set_status(phantom.APP_ERROR, "Error fetching results", e)
 
         return self._get_query_results(action_result, query_job, timeout)
 

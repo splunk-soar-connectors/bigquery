@@ -129,7 +129,7 @@ class BigQueryConnector(BaseConnector):
             try:
                 dataset_ref_list = [client.dataset(dataset)]
             except Exception as e:
-                return action_result.set_status(phantom.APP_ERROR, "Unable to retrieved specified dataset", e)
+                return action_result.set_status(phantom.APP_ERROR, "Unable to retrieve specified dataset", e)
         else:
             try:
                 dataset_ref_list = [x.reference for x in client.list_datasets()]

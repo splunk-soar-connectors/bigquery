@@ -1,16 +1,13 @@
 # --
 # File: bigquery_connector.py
 #
-# Copyright (c) Phantom Cyber Corporation, 2018
+# Copyright (c) 2018-2021 Splunk Inc.
 #
-# This unpublished material is proprietary to Phantom Cyber.
-# All rights reserved. The methods and
-# techniques described herein are considered trade secrets
-# and/or confidential. Reproduction or distribution, in whole
-# or in part, is forbidden except by express written permission
-# of Phantom Cyber.
+# SPLUNK CONFIDENTIAL - Use or disclosure of this material in whole or in part
+# without a valid written license from Splunk Inc. is PROHIBITED.
 #
 # --
+
 # Phantom App imports
 import phantom.app as phantom
 from phantom.base_connector import BaseConnector
@@ -71,6 +68,13 @@ class BigQueryConnector(BaseConnector):
         # Call the BaseConnectors init first
         super(BigQueryConnector, self).__init__()
         self._state = None
+    
+    def is_positive_non_zero_int(self, value):
+        try:
+            value = int(value)
+            return value > 0
+        except Exception:
+            return False
 
     def initialize(self):
         self._state = self.load_state()
@@ -125,21 +129,23 @@ class BigQueryConnector(BaseConnector):
             try:
                 dataset_ref_list = [client.dataset(dataset)]
             except Exception as e:
-                return action_result.set_status(phantom.APP_ERROR, "Unable to retrieved specified dataset", e)
+                return action_result.set_status(phantom.APP_ERROR, "Unable to retrieve specified dataset", e)
         else:
             try:
                 dataset_ref_list = [x.reference for x in client.list_datasets()]
             except Exception as e:
                 return action_result.set_status(phantom.APP_ERROR, "Error creating a list of datasets", e)
-
-        for dataset_ref in dataset_ref_list:
-            for table in client.list_tables(dataset_ref):
-                action_result.add_data({
-                    'table_id': table.table_id,
-                    'dataset_id': dataset_ref.dataset_id,
-                    'project_id': dataset_ref.project,
-                    'full_table_id': table.full_table_id,
-                })
+        try:
+            for dataset_ref in dataset_ref_list:
+                for table in client.list_tables(dataset_ref):
+                    action_result.add_data({
+                        'table_id': table.table_id,
+                        'dataset_id': dataset_ref.dataset_id,
+                        'project_id': dataset_ref.project,
+                        'full_table_id': table.full_table_id,
+                    })
+        except Exception as e:
+            return action_result.set_status(phantom.APP_ERROR, "Error listing dataset", e)
 
         action_result.update_summary({'total_tables': action_result.get_data_size()})
 
@@ -157,11 +163,15 @@ class BigQueryConnector(BaseConnector):
         except Exception as e:
             return action_result.set_status(phantom.APP_ERROR, "Error getting results from query", e)
 
-        for row in result:
-            action_result.add_data(dict(row))
+        try:
+            for row in result:
+                action_result.add_data(dict(row))
+        except:
+            pass
 
         action_result.update_summary({
             'num_rows': action_result.get_data_size(),
+            'job_id': query_job.job_id
         })
 
         return action_result.set_status(phantom.APP_SUCCESS, "Successfully retrieved results from Query")
@@ -170,15 +180,18 @@ class BigQueryConnector(BaseConnector):
         action_result = self.add_action_result(ActionResult(dict(param)))
         job_id = param['job_id']
         timeout = param.get('timeout')
-        if timeout:
-            timeout = int(timeout)
+        if not (timeout is None or self.is_positive_non_zero_int(timeout)):
+            return action_result.set_status(phantom.APP_ERROR, 'Please provide a positive integer in timeout')
 
         try:
             client = self._create_client()
         except Exception as e:
             return action_result.set_status(phantom.APP_ERROR, "Error creating client", e)
 
-        query_job = client.get_job(job_id)
+        try:
+            query_job = client.get_job(job_id)
+        except Exception as e:
+            return action_result.set_status(phantom.APP_ERROR, "Error fetching results", e)
 
         return self._get_query_results(action_result, query_job, timeout)
 
@@ -186,8 +199,8 @@ class BigQueryConnector(BaseConnector):
         action_result = self.add_action_result(ActionResult(dict(param)))
         query = param['query']
         timeout = param.get('timeout')
-        if timeout:
-            timeout = int(timeout)
+        if not (timeout is None or self.is_positive_non_zero_int(timeout)):
+            return action_result.set_status(phantom.APP_ERROR, 'Please provide a positive integer in timeout')
 
         try:
             client = self._create_client()
@@ -242,16 +255,16 @@ if __name__ == '__main__':
     username = args.username
     password = args.password
 
-    if (username is not None and password is None):
+    if username is not None and password is None:
 
         # User specified a username but not a password, so ask
         import getpass
         password = getpass.getpass("Password: ")
 
-    if (username and password):
+    if username and password:
         try:
-            print ("Accessing the Login page")
-            r = requests.get("https://127.0.0.1/login", verify=False)
+            print("Accessing the Login page")
+            r = requests.get("{}login".format(BaseConnector._get_phantom_base_url()), verify=False)
             csrftoken = r.cookies['csrftoken']
 
             data = dict()
@@ -261,17 +274,17 @@ if __name__ == '__main__':
 
             headers = dict()
             headers['Cookie'] = 'csrftoken=' + csrftoken
-            headers['Referer'] = 'https://127.0.0.1/login'
+            headers['Referer'] = "{}login".format(BaseConnector._get_phantom_base_url())
 
-            print ("Logging into Platform to get the session id")
-            r2 = requests.post("https://127.0.0.1/login", verify=False, data=data, headers=headers)
+            print("Logging into Platform to get the session id")
+            r2 = requests.post("{}login".format(BaseConnector._get_phantom_base_url()), verify=False, data=data, headers=headers)
             session_id = r2.cookies['sessionid']
         except Exception as e:
-            print ("Unable to get session id from the platfrom. Error: " + str(e))
+            print("Unable to get session id from the platfrom. Error: " + str(e))
             exit(1)
 
-    if (len(sys.argv) < 2):
-        print "No test json specified as input"
+    if len(sys.argv) < 2:
+        print("No test json specified as input")
         exit(0)
 
     with open(sys.argv[1]) as f:
@@ -282,10 +295,10 @@ if __name__ == '__main__':
         connector = BigQueryConnector()
         connector.print_progress_message = True
 
-        if (session_id is not None):
+        if session_id is not None:
             in_json['user_session_token'] = session_id
 
         ret_val = connector._handle_action(json.dumps(in_json), None)
-        print (json.dumps(json.loads(ret_val), indent=4))
+        print(json.dumps(json.loads(ret_val), indent=4))
 
     exit(0)

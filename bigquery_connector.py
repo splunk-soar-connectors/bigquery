@@ -72,7 +72,7 @@ class BigQueryConnector(BaseConnector):
     def is_positive_non_zero_int(self, value):
         try:
             value = int(value)
-            return True if value > 0 else False
+            return value > 0
         except Exception:
             return False
 

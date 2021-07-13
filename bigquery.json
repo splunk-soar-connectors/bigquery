@@ -8,13 +8,17 @@
     "logo_dark": "logo_big_query_dark.svg",
     "product_name": "Big Query",
     "product_version_regex": ".*",
-    "publisher": "Phantom",
-    "license": "Copyright (c) Phantom Cyber Corporation, 2018",
-    "app_version": "1.0.7",
+    "publisher": "Splunk",
+    "license": "Copyright (c) 2018-2021 Splunk Inc.",
+    "app_version": "2.0.0",
     "utctime_updated": "2018-12-20T02:56:09.000000Z",
     "package_name": "phantom_bigquery",
-    "main_module": "bigquery_connector.pyc",
-    "min_phantom_version": "3.0.284",
+    "main_module": "bigquery_connector.py",
+    "min_phantom_version": "4.9.39220",
+    "latest_tested_versions": [
+        "Cloud, tested on July 8, 2021"
+    ],
+    "python_version": "3",
     "app_wizard_version": "1.0.0",
     "pip_dependencies": {
         "wheel": [
@@ -24,7 +28,7 @@
             },
             {
                 "module": "rsa",
-                "input_file": "wheels/rsa_wheel/rsa-3.4.2-py2.py3-none-any.whl"
+                "input_file": "wheels/rsa_wheel/rsa-4.7.2-py3-none-any.whl"
             },
             {
                 "module": "cachetools",
@@ -36,11 +40,7 @@
             },
             {
                 "module": "google_bigquery_package_bundle",
-                "input_file": "wheels/google_bigquery_package_bundle/google_bigquery_package_bundle-0.1.0-py2-none-any.whl"
-            },
-            {
-                "module": "futures",
-                "input_file": "wheels/futures/futures-3.2.0-py2-none-any.whl"
+                "input_file": "wheels/google_bigquery_package_bundle/google_bigquery_package_bundle-0.1.0-py2.py3-none-any.whl"
             }
         ]
     },
@@ -57,7 +57,6 @@
             "action": "test connectivity",
             "identifier": "test_connectivity",
             "description": "Validate the asset configuration for connectivity using supplied configuration",
-            "verbose": "",
             "type": "test",
             "read_only": true,
             "parameters": {},
@@ -68,7 +67,6 @@
             "action": "list tables",
             "identifier": "list_tables",
             "description": "List Tables",
-            "verbose": "",
             "type": "investigate",
             "read_only": true,
             "parameters": {
@@ -79,7 +77,6 @@
                         "bigquery dataset"
                     ],
                     "primary": true,
-                    "required": false,
                     "column_order": 0
                 }
             },
@@ -88,7 +85,8 @@
                     "data_path": "action_result.status",
                     "data_type": "string",
                     "example_values": [
-                        "success"
+                        "success",
+                        "failed"
                     ]
                 },
                 {
@@ -170,7 +168,6 @@
             "action": "get results",
             "identifier": "get_results",
             "description": "Get results from a job started with 'run query'",
-            "verbose": "",
             "type": "investigate",
             "read_only": true,
             "parameters": {
@@ -187,7 +184,6 @@
                 "timeout": {
                     "description": "How long to wait for results",
                     "data_type": "numeric",
-                    "required": false,
                     "order": 1
                 }
             },
@@ -195,10 +191,11 @@
                 {
                     "data_path": "action_result.status",
                     "data_type": "string",
-                    "column_name": "status",
+                    "column_name": "Status",
                     "column_order": 2,
                     "example_values": [
-                        "success"
+                        "success",
+                        "failed"
                     ]
                 },
                 {
@@ -271,7 +268,6 @@
             "action": "run query",
             "identifier": "run_query",
             "description": "Run a Query",
-            "verbose": "",
             "type": "investigate",
             "read_only": false,
             "parameters": {
@@ -288,7 +284,6 @@
                 "timeout": {
                     "description": "How long to wait for results",
                     "data_type": "numeric",
-                    "required": false,
                     "order": 1
                 }
             },
@@ -296,10 +291,11 @@
                 {
                     "data_path": "action_result.status",
                     "data_type": "string",
-                    "column_name": "status",
+                    "column_name": "Status",
                     "column_order": 2,
                     "example_values": [
-                        "success"
+                        "success",
+                        "failed"
                     ]
                 },
                 {

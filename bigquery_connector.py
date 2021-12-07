@@ -14,15 +14,16 @@
 # and limitations under the License.
 #
 #
-# Phantom App imports
-import phantom.app as phantom
-from phantom.base_connector import BaseConnector
-from phantom.action_result import ActionResult
-
-# Usage of the consts file is recommended
-# from bigquery_consts import *
-import requests
 import json
+from concurrent.futures import TimeoutError
+
+import phantom.app as phantom
+import pkg_resources
+import requests
+from google.cloud import bigquery
+from google.oauth2 import service_account
+from phantom.action_result import ActionResult
+from phantom.base_connector import BaseConnector
 
 # "What's going on here?"
 # Wheel files don't install how you expect (want?) them to if they would all go into the same directory
@@ -37,7 +38,6 @@ import json
 # This will throw an exception, because get_distribution isn't going to be able to find any of those modules
 # This patch fixes that. Granted, every file is now going to be __version__ 1.0.0, but that shouldn't cause any problems
 
-import pkg_resources
 
 
 class VersionObj(object):  # noqa
@@ -53,13 +53,7 @@ def _tmp_get_distribution(package_name):  # noqa
 
 pkg_resources.get_distribution = _tmp_get_distribution  # noqa
 
-from google.oauth2 import service_account
-from google.cloud import bigquery
-# from google.cloud.exceptions import GoogleCloudError
-
 pkg_resources.get_distribution = _old_get_distribution  # noqa
-
-from concurrent.futures import TimeoutError
 
 
 class RetVal(tuple):
@@ -74,7 +68,7 @@ class BigQueryConnector(BaseConnector):
         # Call the BaseConnectors init first
         super(BigQueryConnector, self).__init__()
         self._state = None
-    
+
     def is_positive_non_zero_int(self, value):
         try:
             value = int(value)
@@ -243,9 +237,10 @@ class BigQueryConnector(BaseConnector):
 
 if __name__ == '__main__':
 
-    import sys
-    import pudb
     import argparse
+    import sys
+
+    import pudb
 
     pudb.set_trace()
 

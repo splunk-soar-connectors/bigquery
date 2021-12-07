@@ -22,7 +22,7 @@ def display_query_results(provides, all_results, context):
             headers_set = set()
             table = dict()
             table['data'] = rows = []
-            
+
             data = result.get_data()
             if data:
                 headers_set.update(data[0].keys())

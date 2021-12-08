@@ -19,6 +19,7 @@
         "Cloud, tested on July 8, 2021"
     ],
     "python_version": "3",
+    "fips_compliant":true,
     "app_wizard_version": "1.0.0",
     "pip_dependencies": {
         "wheel": [
@@ -77,7 +78,7 @@
                         "bigquery dataset"
                     ],
                     "primary": true,
-                    "column_order": 0
+                    "order": 0
                 }
             },
             "output": [
@@ -179,7 +180,8 @@
                     ],
                     "primary": true,
                     "required": true,
-                    "column_name": 0
+                    "column_name": 0,
+                    "order": 0
                 },
                 "timeout": {
                     "description": "How long to wait for results",
@@ -192,7 +194,7 @@
                     "data_path": "action_result.status",
                     "data_type": "string",
                     "column_name": "Status",
-                    "column_order": 2,
+                    "column_order": 0,
                     "example_values": [
                         "success",
                         "failed"
@@ -292,7 +294,7 @@
                     "data_path": "action_result.status",
                     "data_type": "string",
                     "column_name": "Status",
-                    "column_order": 2,
+                    "column_order": 0,
                     "example_values": [
                         "success",
                         "failed"

@@ -10,8 +10,8 @@
     "product_version_regex": ".*",
     "publisher": "Splunk",
     "license": "Copyright (c) 2018-2021 Splunk Inc.",
-    "app_version": "2.0.1",
-    "utctime_updated": "2021-07-13T05:11:24.000000Z",
+    "app_version": "2.0.2",
+    "utctime_updated": "2021-12-08T17:45:40.000000Z",
     "package_name": "phantom_bigquery",
     "main_module": "bigquery_connector.py",
     "min_phantom_version": "4.9.39220",
@@ -19,7 +19,7 @@
         "Cloud, tested on July 8, 2021"
     ],
     "python_version": "3",
-    "fips_compliant":true,
+    "fips_compliant": true,
     "app_wizard_version": "1.0.0",
     "pip_dependencies": {
         "wheel": [

@@ -1,22 +1,29 @@
-# --
 # File: bigquery_connector.py
 #
 # Copyright (c) 2018-2021 Splunk Inc.
 #
-# SPLUNK CONFIDENTIAL - Use or disclosure of this material in whole or in part
-# without a valid written license from Splunk Inc. is PROHIBITED.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
 #
-# --
-
-# Phantom App imports
-import phantom.app as phantom
-from phantom.base_connector import BaseConnector
-from phantom.action_result import ActionResult
-
-# Usage of the consts file is recommended
-# from bigquery_consts import *
-import requests
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software distributed under
+# the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+# either express or implied. See the License for the specific language governing permissions
+# and limitations under the License.
+#
+#
 import json
+from concurrent.futures import TimeoutError
+
+import phantom.app as phantom
+import pkg_resources
+import requests
+from google.cloud import bigquery
+from google.oauth2 import service_account
+from phantom.action_result import ActionResult
+from phantom.base_connector import BaseConnector
 
 # "What's going on here?"
 # Wheel files don't install how you expect (want?) them to if they would all go into the same directory
@@ -31,7 +38,6 @@ import json
 # This will throw an exception, because get_distribution isn't going to be able to find any of those modules
 # This patch fixes that. Granted, every file is now going to be __version__ 1.0.0, but that shouldn't cause any problems
 
-import pkg_resources
 
 
 class VersionObj(object):  # noqa
@@ -47,13 +53,7 @@ def _tmp_get_distribution(package_name):  # noqa
 
 pkg_resources.get_distribution = _tmp_get_distribution  # noqa
 
-from google.oauth2 import service_account
-from google.cloud import bigquery
-# from google.cloud.exceptions import GoogleCloudError
-
 pkg_resources.get_distribution = _old_get_distribution  # noqa
-
-from concurrent.futures import TimeoutError
 
 
 class RetVal(tuple):
@@ -69,6 +69,13 @@ class BigQueryConnector(BaseConnector):
         super(BigQueryConnector, self).__init__()
         self._state = None
     
+    def is_positive_non_zero_int(self, value):
+        try:
+            value = int(value)
+            return value > 0
+        except Exception:
+            return False
+
     def is_positive_non_zero_int(self, value):
         try:
             value = int(value)
@@ -237,9 +244,10 @@ class BigQueryConnector(BaseConnector):
 
 if __name__ == '__main__':
 
-    import sys
-    import pudb
     import argparse
+    import sys
+
+    import pudb
 
     pudb.set_trace()
 

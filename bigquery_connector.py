@@ -68,13 +68,6 @@ class BigQueryConnector(BaseConnector):
         # Call the BaseConnectors init first
         super(BigQueryConnector, self).__init__()
         self._state = None
-    
-    def is_positive_non_zero_int(self, value):
-        try:
-            value = int(value)
-            return value > 0
-        except Exception:
-            return False
 
     def is_positive_non_zero_int(self, value):
         try:

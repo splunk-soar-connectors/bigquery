@@ -1,6 +1,6 @@
 cachetools==2.0.1
-google_bigquery_package_bundle==0.1.0
-pyasn==0.1.1
+google-cloud-bigquery==2.31.0
+pyasn1==0.4.6
 requests==2.25.0
 rsa==4.7.2
 uritemplate==3.0.0

@@ -15,7 +15,7 @@
 ### Service Account
 
 This app requires a pre-configured service account to operate. Please follow the procedure outlines
-at [this link](https://support.google.com/a/answer/7378726?hl=en) to create a service account.  
+at [this link](https://support.google.com/a/answer/7378726?hl=en) to create a service account.
 The following API will need to be enabled:
 
 -   Bigquery API

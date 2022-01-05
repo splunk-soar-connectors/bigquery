@@ -1,5 +1,5 @@
 [comment]: # "    File: readme.md"
-[comment]: # "    Copyright (c) 2018-2021 Splunk Inc."
+[comment]: # "    Copyright (c) 2018-2022 Splunk Inc."
 [comment]: # ""
 [comment]: # "Licensed under the Apache License, Version 2.0 (the 'License');"
 [comment]: # "you may not use this file except in compliance with the License."
@@ -15,7 +15,7 @@
 ### Service Account
 
 This app requires a pre-configured service account to operate. Please follow the procedure outlines
-at [this link](https://support.google.com/a/answer/7378726?hl=en) to create a service account.  
+at [this link](https://support.google.com/a/answer/7378726?hl=en) to create a service account.
 The following API will need to be enabled:
 
 -   Bigquery API

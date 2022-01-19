@@ -2,7 +2,7 @@
 # Big Query
 
 Publisher: Splunk  
-Connector Version: 2\.0\.3  
+Connector Version: 2\.0\.5  
 Product Vendor: Google  
 Product Name: Big Query  
 Product Version Supported (regex): "\.\*"  
@@ -10,7 +10,7 @@ Minimum Product Version: 5\.0\.0
 
 This app allows running investigative actions against Google BigQuery
 
-[comment]: # "    File: readme.md"
+[comment]: # "    File: README.md"
 [comment]: # "    Copyright (c) 2018-2022 Splunk Inc."
 [comment]: # ""
 [comment]: # "Licensed under the Apache License, Version 2.0 (the 'License');"

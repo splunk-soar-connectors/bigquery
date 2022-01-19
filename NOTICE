@@ -1,0 +1,29 @@
+Splunk SOAR Big Query
+Copyright (c) 2018-2022 Splunk Inc.
+
+Third-party Software Attributions:
+
+Library: cachetools
+Version: 2.0.1
+License: MIT
+Copyright 2014-2017 Thomas Kemmer
+
+Library: pyasn1
+Version: 0.4.6
+License: BSD 2
+Copyright 2005-2019 Ilya Etingof <etingof@gmail.com>
+
+Library: requests
+Version: 2.25.0
+License: Apache 2.0
+Kenneth Reitz
+
+Library: rsa
+Version: 4.7.2
+License: Apache 2.0
+Copyright 2011 Sybren A
+
+Library: uritemplate
+Version: 3.0.0
+License: Apache 2.0
+Unknown copyright

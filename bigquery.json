@@ -37,11 +37,11 @@
             },
             {
                 "module": "google_api_core",
-                "input_file": "wheels/google_api_core-2.3.2-py2.py3-none-any.whl"
+                "input_file": "wheels/google_api_core-2.4.0-py2.py3-none-any.whl"
             },
             {
                 "module": "google_auth",
-                "input_file": "wheels/google_auth-2.3.3-py2.py3-none-any.whl"
+                "input_file": "wheels/google_auth-2.4.1-py2.py3-none-any.whl"
             },
             {
                 "module": "google_cloud_bigquery",
@@ -49,7 +49,7 @@
             },
             {
                 "module": "google_cloud_core",
-                "input_file": "wheels/google_cloud_core-2.2.1-py2.py3-none-any.whl"
+                "input_file": "wheels/google_cloud_core-2.2.2-py2.py3-none-any.whl"
             },
             {
                 "module": "google_crc32c",
@@ -97,7 +97,7 @@
             },
             {
                 "module": "pyparsing",
-                "input_file": "wheels/pyparsing-3.0.6-py3-none-any.whl"
+                "input_file": "wheels/pyparsing-3.0.7-py3-none-any.whl"
             },
             {
                 "module": "python_dateutil",

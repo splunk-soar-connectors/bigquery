@@ -24,6 +24,7 @@ from google.cloud import bigquery
 from google.oauth2 import service_account
 from phantom.action_result import ActionResult
 from phantom.base_connector import BaseConnector
+
 from bigquery_consts import *
 
 # "What's going on here?"

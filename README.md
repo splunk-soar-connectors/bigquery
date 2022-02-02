@@ -2,11 +2,11 @@
 # Big Query
 
 Publisher: Splunk  
-Connector Version: 2\.0\.5  
+Connector Version: 2\.0\.8  
 Product Vendor: Google  
 Product Name: Big Query  
 Product Version Supported (regex): "\.\*"  
-Minimum Product Version: 5\.0\.0  
+Minimum Product Version: 5\.1\.0  
 
 This app allows running investigative actions against Google BigQuery
 

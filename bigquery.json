@@ -14,7 +14,7 @@
     "utctime_updated": "2022-01-26T23:41:33.000000Z",
     "package_name": "phantom_bigquery",
     "main_module": "bigquery_connector.py",
-    "min_phantom_version": "5.0.0",
+    "min_phantom_version": "5.1.0",
     "latest_tested_versions": [
         "Cloud, tested on July 8, 2021"
     ],

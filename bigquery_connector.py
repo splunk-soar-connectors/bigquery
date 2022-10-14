@@ -131,6 +131,7 @@ class BigQueryConnector(BaseConnector):
         except Exception as e:
             return action_result.set_status(phantom.APP_ERROR, "Error creating client", e)
 
+        self.save_progress("Querying tables list...")
         if dataset:
             try:
                 dataset_ref_list = [client.dataset(dataset)]
@@ -140,7 +141,9 @@ class BigQueryConnector(BaseConnector):
             try:
                 dataset_ref_list = [x.reference for x in client.list_datasets()]
             except Exception as e:
-                return action_result.set_status(phantom.APP_ERROR, "Error creating a list of datasets", e)
+                return action_result.set_status(phantom.APP_ERROR, "Error creating a list of datasets", e)\
+
+        self.save_progress("Processing tables list...")
         try:
             for dataset_ref in dataset_ref_list:
                 for table in client.list_tables(dataset_ref):
@@ -194,6 +197,7 @@ class BigQueryConnector(BaseConnector):
         except Exception as e:
             return action_result.set_status(phantom.APP_ERROR, "Error creating client", e)
 
+        self.save_progress("Fetching jobs...")
         try:
             query_job = client.get_job(job_id)
         except Exception as e:
@@ -208,6 +212,7 @@ class BigQueryConnector(BaseConnector):
         if not (timeout is None or self.is_positive_non_zero_int(timeout)):
             return action_result.set_status(phantom.APP_ERROR, 'Please provide a positive integer in timeout')
 
+        self.save_progress("Running query...")
         try:
             client = self._create_client()
         except Exception as e:

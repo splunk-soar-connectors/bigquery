@@ -141,7 +141,7 @@ class BigQueryConnector(BaseConnector):
             try:
                 dataset_ref_list = [x.reference for x in client.list_datasets()]
             except Exception as e:
-                return action_result.set_status(phantom.APP_ERROR, "Error creating a list of datasets", e)\
+                return action_result.set_status(phantom.APP_ERROR, "Error creating a list of datasets", e)
 
         self.save_progress("Processing tables list...")
         try:

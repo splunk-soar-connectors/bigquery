@@ -17,7 +17,7 @@
 
 # The import order matters because of an issue kind of like https://github.com/grpc/grpc/issues/26279 (although that issue
 # is for ARM and we're on x86). So bigquery should be imported before everything else
-from google.cloud import bigquery
+from google.cloud import bigquery # isort:skip
 
 import json
 from concurrent.futures import TimeoutError

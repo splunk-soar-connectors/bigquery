@@ -14,13 +14,17 @@
 # and limitations under the License.
 #
 #
+
+# The import order matters because of an issue kind of like https://github.com/grpc/grpc/issues/26279 (although that issue
+# is for ARM and we're on x86). So bigquery should be imported before everything else
+from google.cloud import bigquery
+
 import json
 from concurrent.futures import TimeoutError
 
 import phantom.app as phantom
 import pkg_resources
 import requests
-from google.cloud import bigquery
 from google.oauth2 import service_account
 from phantom.action_result import ActionResult
 from phantom.base_connector import BaseConnector

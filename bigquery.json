@@ -85,7 +85,7 @@
             },
             {
                 "module": "protobuf",
-                "input_file": "wheels/py36/protobuf-3.19.5-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+                "input_file": "wheels/py36/protobuf-3.19.6-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
             },
             {
                 "module": "pyasn1",
@@ -495,7 +495,7 @@
             },
             {
                 "module": "grpcio_status",
-                "input_file": "wheels/py3/grpcio_status-1.48.2-py3-none-any.whl"
+                "input_file": "wheels/py3/grpcio_status-1.50.0-py3-none-any.whl"
             },
             {
                 "module": "idna",
@@ -511,7 +511,7 @@
             },
             {
                 "module": "protobuf",
-                "input_file": "wheels/py39/protobuf-3.19.5-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+                "input_file": "wheels/py3/protobuf-4.21.8-cp37-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl"
             },
             {
                 "module": "pyasn1",

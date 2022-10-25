@@ -1,6 +1,5 @@
 cachetools==2.0.1
 google-cloud-bigquery==2.31.0
-protobuf==3.19.5
 pyasn1==0.4.6
 requests==2.25.0
 rsa==4.7.2

@@ -1,1 +1,2 @@
 **Unreleased**
+* Updated protobuf package due to vulnerability CVE-2022-1941 [PAPP-28007]

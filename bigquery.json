@@ -10,7 +10,7 @@
     "product_version_regex": ".*",
     "publisher": "Splunk",
     "license": "Copyright (c) 2018-2022 Splunk Inc.",
-    "app_version": "2.0.9",
+    "app_version": "2.1.0",
     "utctime_updated": "2022-02-02T18:30:29.000000Z",
     "package_name": "phantom_bigquery",
     "main_module": "bigquery_connector.py",
@@ -29,7 +29,7 @@
             },
             {
                 "module": "certifi",
-                "input_file": "wheels/shared/certifi-2021.10.8-py2.py3-none-any.whl"
+                "input_file": "wheels/py3/certifi-2022.9.24-py3-none-any.whl"
             },
             {
                 "module": "chardet",
@@ -37,11 +37,11 @@
             },
             {
                 "module": "google_api_core",
-                "input_file": "wheels/shared/google_api_core-2.4.0-py2.py3-none-any.whl"
+                "input_file": "wheels/py3/google_api_core-2.8.2-py3-none-any.whl"
             },
             {
                 "module": "google_auth",
-                "input_file": "wheels/shared/google_auth-2.6.0-py2.py3-none-any.whl"
+                "input_file": "wheels/shared/google_auth-2.13.0-py2.py3-none-any.whl"
             },
             {
                 "module": "google_cloud_bigquery",
@@ -49,7 +49,7 @@
             },
             {
                 "module": "google_cloud_core",
-                "input_file": "wheels/shared/google_cloud_core-2.2.2-py2.py3-none-any.whl"
+                "input_file": "wheels/shared/google_cloud_core-2.3.1-py2.py3-none-any.whl"
             },
             {
                 "module": "google_crc32c",
@@ -57,19 +57,19 @@
             },
             {
                 "module": "google_resumable_media",
-                "input_file": "wheels/shared/google_resumable_media-2.1.0-py2.py3-none-any.whl"
+                "input_file": "wheels/shared/google_resumable_media-2.3.3-py2.py3-none-any.whl"
             },
             {
                 "module": "googleapis_common_protos",
-                "input_file": "wheels/shared/googleapis_common_protos-1.54.0-py2.py3-none-any.whl"
+                "input_file": "wheels/shared/googleapis_common_protos-1.56.3-py2.py3-none-any.whl"
             },
             {
                 "module": "grpcio",
-                "input_file": "wheels/py36/grpcio-1.43.0-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+                "input_file": "wheels/py36/grpcio-1.48.2-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
             },
             {
                 "module": "grpcio_status",
-                "input_file": "wheels/py3/grpcio_status-1.43.0-py3-none-any.whl"
+                "input_file": "wheels/py3/grpcio_status-1.48.2-py3-none-any.whl"
             },
             {
                 "module": "idna",
@@ -81,11 +81,11 @@
             },
             {
                 "module": "proto_plus",
-                "input_file": "wheels/py3/proto_plus-1.19.9-py3-none-any.whl"
+                "input_file": "wheels/py3/proto_plus-1.22.1-py3-none-any.whl"
             },
             {
                 "module": "protobuf",
-                "input_file": "wheels/py36/protobuf-3.19.4-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+                "input_file": "wheels/py36/protobuf-3.19.6-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
             },
             {
                 "module": "pyasn1",
@@ -97,7 +97,7 @@
             },
             {
                 "module": "pyparsing",
-                "input_file": "wheels/py3/pyparsing-3.0.7-py3-none-any.whl"
+                "input_file": "wheels/py3/pyparsing-3.0.9-py3-none-any.whl"
             },
             {
                 "module": "python_dateutil",
@@ -112,10 +112,6 @@
                 "input_file": "wheels/py3/rsa-4.7.2-py3-none-any.whl"
             },
             {
-                "module": "setuptools",
-                "input_file": "wheels/py3/setuptools-59.6.0-py3-none-any.whl"
-            },
-            {
                 "module": "six",
                 "input_file": "wheels/shared/six-1.16.0-py2.py3-none-any.whl"
             },
@@ -125,7 +121,7 @@
             },
             {
                 "module": "urllib3",
-                "input_file": "wheels/shared/urllib3-1.26.8-py2.py3-none-any.whl"
+                "input_file": "wheels/shared/urllib3-1.26.12-py2.py3-none-any.whl"
             }
         ]
     },
@@ -459,7 +455,7 @@
             },
             {
                 "module": "certifi",
-                "input_file": "wheels/shared/certifi-2021.10.8-py2.py3-none-any.whl"
+                "input_file": "wheels/py3/certifi-2022.9.24-py3-none-any.whl"
             },
             {
                 "module": "chardet",
@@ -467,11 +463,11 @@
             },
             {
                 "module": "google_api_core",
-                "input_file": "wheels/shared/google_api_core-2.4.0-py2.py3-none-any.whl"
+                "input_file": "wheels/py3/google_api_core-2.10.2-py3-none-any.whl"
             },
             {
                 "module": "google_auth",
-                "input_file": "wheels/shared/google_auth-2.6.0-py2.py3-none-any.whl"
+                "input_file": "wheels/shared/google_auth-2.13.0-py2.py3-none-any.whl"
             },
             {
                 "module": "google_cloud_bigquery",
@@ -479,27 +475,27 @@
             },
             {
                 "module": "google_cloud_core",
-                "input_file": "wheels/shared/google_cloud_core-2.2.2-py2.py3-none-any.whl"
+                "input_file": "wheels/shared/google_cloud_core-2.3.2-py2.py3-none-any.whl"
             },
             {
                 "module": "google_crc32c",
-                "input_file": "wheels/py39/google_crc32c-1.3.0-cp39-cp39-manylinux_2_12_x86_64.manylinux2010_x86_64.manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+                "input_file": "wheels/py39/google_crc32c-1.5.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_5_x86_64.manylinux1_x86_64.whl"
             },
             {
                 "module": "google_resumable_media",
-                "input_file": "wheels/shared/google_resumable_media-2.1.0-py2.py3-none-any.whl"
+                "input_file": "wheels/shared/google_resumable_media-2.4.0-py2.py3-none-any.whl"
             },
             {
                 "module": "googleapis_common_protos",
-                "input_file": "wheels/shared/googleapis_common_protos-1.54.0-py2.py3-none-any.whl"
+                "input_file": "wheels/shared/googleapis_common_protos-1.56.4-py2.py3-none-any.whl"
             },
             {
                 "module": "grpcio",
-                "input_file": "wheels/py39/grpcio-1.43.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+                "input_file": "wheels/py39/grpcio-1.50.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
             },
             {
                 "module": "grpcio_status",
-                "input_file": "wheels/py3/grpcio_status-1.43.0-py3-none-any.whl"
+                "input_file": "wheels/py3/grpcio_status-1.50.0-py3-none-any.whl"
             },
             {
                 "module": "idna",
@@ -511,11 +507,11 @@
             },
             {
                 "module": "proto_plus",
-                "input_file": "wheels/py3/proto_plus-1.19.9-py3-none-any.whl"
+                "input_file": "wheels/py3/proto_plus-1.22.1-py3-none-any.whl"
             },
             {
                 "module": "protobuf",
-                "input_file": "wheels/py39/protobuf-3.19.4-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+                "input_file": "wheels/py3/protobuf-4.21.8-cp37-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl"
             },
             {
                 "module": "pyasn1",
@@ -527,7 +523,7 @@
             },
             {
                 "module": "pyparsing",
-                "input_file": "wheels/py3/pyparsing-3.0.7-py3-none-any.whl"
+                "input_file": "wheels/py3/pyparsing-3.0.9-py3-none-any.whl"
             },
             {
                 "module": "python_dateutil",
@@ -542,10 +538,6 @@
                 "input_file": "wheels/py3/rsa-4.7.2-py3-none-any.whl"
             },
             {
-                "module": "setuptools",
-                "input_file": "wheels/py3/setuptools-60.6.0-py3-none-any.whl"
-            },
-            {
                 "module": "six",
                 "input_file": "wheels/shared/six-1.16.0-py2.py3-none-any.whl"
             },
@@ -555,7 +547,7 @@
             },
             {
                 "module": "urllib3",
-                "input_file": "wheels/shared/urllib3-1.26.8-py2.py3-none-any.whl"
+                "input_file": "wheels/shared/urllib3-1.26.12-py2.py3-none-any.whl"
             }
         ]
     }

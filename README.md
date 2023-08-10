@@ -2,11 +2,11 @@
 # Big Query
 
 Publisher: Splunk  
-Connector Version: 2\.1\.0  
+Connector Version: 2.1.1  
 Product Vendor: Google  
 Product Name: Big Query  
-Product Version Supported (regex): "\.\*"  
-Minimum Product Version: 5\.3\.0  
+Product Version Supported (regex): ".\*"  
+Minimum Product Version: 5.3.0  
 
 This app allows running investigative actions against Google BigQuery
 
@@ -51,7 +51,7 @@ The below configuration variables are required for this Connector to operate.  T
 
 VARIABLE | REQUIRED | TYPE | DESCRIPTION
 -------- | -------- | ---- | -----------
-**key\_json** |  required  | password | Contents of Service Account JSON file
+**key_json** |  required  | password | Contents of Service Account JSON file
 
 ### Supported Actions  
 [test connectivity](#action-test-connectivity) - Validate the asset configuration for connectivity using supplied configuration  
@@ -83,18 +83,18 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **dataset** |  optional  | Only list tables in this dataset | string |  `bigquery dataset` 
 
 #### Action Output
-DATA PATH | TYPE | CONTAINS
---------- | ---- | --------
-action\_result\.status | string | 
-action\_result\.parameter\.dataset | string |  `bigquery dataset` 
-action\_result\.data\.\*\.dataset\_id | string |  `bigquery dataset` 
-action\_result\.data\.\*\.full\_table\_id | string | 
-action\_result\.data\.\*\.project\_id | string | 
-action\_result\.data\.\*\.table\_id | string | 
-action\_result\.summary\.total\_tables | numeric | 
-action\_result\.message | string | 
-summary\.total\_objects | numeric | 
-summary\.total\_objects\_successful | numeric |   
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.status | string |  |   success  failed 
+action_result.parameter.dataset | string |  `bigquery dataset`  |  
+action_result.data.\*.dataset_id | string |  `bigquery dataset`  |   company_dataset 
+action_result.data.\*.full_table_id | string |  |   my-company-project-513002:company_dataset.test_table_1 
+action_result.data.\*.project_id | string |  |   my-company-project-513002 
+action_result.data.\*.table_id | string |  |   test_table_1 
+action_result.summary.total_tables | numeric |  |  
+action_result.message | string |  |   Successfully listed tables 
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1   
 
 ## action: 'get results'
 Get results from a job started with 'run query'
@@ -105,21 +105,21 @@ Read only: **True**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**job\_id** |  required  | Job ID | string |  `bigquery job id` 
+**job_id** |  required  | Job ID | string |  `bigquery job id` 
 **timeout** |  optional  | How long to wait for results | numeric | 
 
 #### Action Output
-DATA PATH | TYPE | CONTAINS
---------- | ---- | --------
-action\_result\.status | string | 
-action\_result\.parameter\.job\_id | string |  `bigquery job id` 
-action\_result\.parameter\.timeout | numeric | 
-action\_result\.data\.\* | string | 
-action\_result\.summary\.job\_id | string |  `bigquery job id` 
-action\_result\.summary\.num\_rows | numeric | 
-action\_result\.message | string | 
-summary\.total\_objects | numeric | 
-summary\.total\_objects\_successful | numeric |   
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.status | string |  |   success  failed 
+action_result.parameter.job_id | string |  `bigquery job id`  |   5a9e1de5-342d-4be8-a1e4-93aff49174ff 
+action_result.parameter.timeout | numeric |  |   30 
+action_result.data.\* | string |  |  
+action_result.summary.job_id | string |  `bigquery job id`  |   5a9e1de5-342d-4be8-a1e4-93aff49174ff 
+action_result.summary.num_rows | numeric |  |   1000 
+action_result.message | string |  |   Successfully retrieved results from Query 
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1   
 
 ## action: 'run query'
 Run a Query
@@ -134,14 +134,14 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **timeout** |  optional  | How long to wait for results | numeric | 
 
 #### Action Output
-DATA PATH | TYPE | CONTAINS
---------- | ---- | --------
-action\_result\.status | string | 
-action\_result\.parameter\.query | string |  `bigquery query` 
-action\_result\.parameter\.timeout | numeric | 
-action\_result\.data\.\* | string | 
-action\_result\.summary\.job\_id | string |  `bigquery job id` 
-action\_result\.summary\.num\_rows | numeric | 
-action\_result\.message | string | 
-summary\.total\_objects | numeric | 
-summary\.total\_objects\_successful | numeric | 
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.status | string |  |   success  failed 
+action_result.parameter.query | string |  `bigquery query`  |   SELECT  weight_pounds, state, year, gestation_weeks FROM  `bigquery-public-data.samples.natality` LIMIT 1000; 
+action_result.parameter.timeout | numeric |  |   1 
+action_result.data.\* | string |  |  
+action_result.summary.job_id | string |  `bigquery job id`  |   5a9e1de5-342d-4be8-a1e4-93aff49174ff 
+action_result.summary.num_rows | numeric |  |   1000 
+action_result.message | string |  |   Successfully retrieved results from Query 
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1 

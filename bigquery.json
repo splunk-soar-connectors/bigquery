@@ -443,7 +443,7 @@
             },
             {
                 "module": "google_auth",
-                "input_file": "wheels/shared/google_auth-2.24.0-py2.py3-none-any.whl"
+                "input_file": "wheels/shared/google_auth-2.25.1-py2.py3-none-any.whl"
             },
             {
                 "module": "google_cloud_bigquery",

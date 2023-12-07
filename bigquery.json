@@ -28,14 +28,6 @@
                 "input_file": "wheels/shared/cachetools-2.0.1-py2.py3-none-any.whl"
             },
             {
-                "module": "certifi",
-                "input_file": "wheels/py3/certifi-2023.11.17-py3-none-any.whl"
-            },
-            {
-                "module": "charset_normalizer",
-                "input_file": "wheels/py3/charset_normalizer-2.0.12-py3-none-any.whl"
-            },
-            {
                 "module": "google_api_core",
                 "input_file": "wheels/py3/google_api_core-2.8.2-py3-none-any.whl"
             },
@@ -72,10 +64,6 @@
                 "input_file": "wheels/py3/grpcio_status-1.48.2-py3-none-any.whl"
             },
             {
-                "module": "idna",
-                "input_file": "wheels/py3/idna-3.6-py3-none-any.whl"
-            },
-            {
                 "module": "packaging",
                 "input_file": "wheels/py3/packaging-21.3-py3-none-any.whl"
             },
@@ -102,10 +90,6 @@
             {
                 "module": "python_dateutil",
                 "input_file": "wheels/shared/python_dateutil-2.8.2-py2.py3-none-any.whl"
-            },
-            {
-                "module": "requests",
-                "input_file": "wheels/shared/requests-2.27.1-py2.py3-none-any.whl"
             },
             {
                 "module": "rsa",
@@ -454,14 +438,6 @@
                 "input_file": "wheels/shared/cachetools-2.0.1-py2.py3-none-any.whl"
             },
             {
-                "module": "certifi",
-                "input_file": "wheels/py3/certifi-2023.11.17-py3-none-any.whl"
-            },
-            {
-                "module": "charset_normalizer",
-                "input_file": "wheels/py39/charset_normalizer-3.3.2-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
-            },
-            {
                 "module": "google_api_core",
                 "input_file": "wheels/py3/google_api_core-2.14.0-py3-none-any.whl"
             },
@@ -498,10 +474,6 @@
                 "input_file": "wheels/py3/grpcio_status-1.59.3-py3-none-any.whl"
             },
             {
-                "module": "idna",
-                "input_file": "wheels/py3/idna-3.6-py3-none-any.whl"
-            },
-            {
                 "module": "packaging",
                 "input_file": "wheels/py3/packaging-23.2-py3-none-any.whl"
             },
@@ -524,10 +496,6 @@
             {
                 "module": "python_dateutil",
                 "input_file": "wheels/shared/python_dateutil-2.8.2-py2.py3-none-any.whl"
-            },
-            {
-                "module": "requests",
-                "input_file": "wheels/py3/requests-2.31.0-py3-none-any.whl"
             },
             {
                 "module": "rsa",

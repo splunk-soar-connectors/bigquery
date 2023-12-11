@@ -9,8 +9,8 @@
     "product_name": "Big Query",
     "product_version_regex": ".*",
     "publisher": "Splunk",
-    "license": "Copyright (c) 2018-2022 Splunk Inc.",
-    "app_version": "2.1.0",
+    "license": "Copyright (c) 2018-2023 Splunk Inc.",
+    "app_version": "2.1.1",
     "utctime_updated": "2022-02-02T18:30:29.000000Z",
     "package_name": "phantom_bigquery",
     "main_module": "bigquery_connector.py",
@@ -28,20 +28,12 @@
                 "input_file": "wheels/shared/cachetools-2.0.1-py2.py3-none-any.whl"
             },
             {
-                "module": "certifi",
-                "input_file": "wheels/py3/certifi-2022.9.24-py3-none-any.whl"
-            },
-            {
-                "module": "chardet",
-                "input_file": "wheels/shared/chardet-3.0.4-py2.py3-none-any.whl"
-            },
-            {
                 "module": "google_api_core",
                 "input_file": "wheels/py3/google_api_core-2.8.2-py3-none-any.whl"
             },
             {
                 "module": "google_auth",
-                "input_file": "wheels/shared/google_auth-2.13.0-py2.py3-none-any.whl"
+                "input_file": "wheels/shared/google_auth-2.22.0-py2.py3-none-any.whl"
             },
             {
                 "module": "google_cloud_bigquery",
@@ -72,16 +64,12 @@
                 "input_file": "wheels/py3/grpcio_status-1.48.2-py3-none-any.whl"
             },
             {
-                "module": "idna",
-                "input_file": "wheels/shared/idna-2.10-py2.py3-none-any.whl"
-            },
-            {
                 "module": "packaging",
                 "input_file": "wheels/py3/packaging-21.3-py3-none-any.whl"
             },
             {
                 "module": "proto_plus",
-                "input_file": "wheels/py3/proto_plus-1.22.1-py3-none-any.whl"
+                "input_file": "wheels/py3/proto_plus-1.22.3-py3-none-any.whl"
             },
             {
                 "module": "protobuf",
@@ -93,19 +81,15 @@
             },
             {
                 "module": "pyasn1_modules",
-                "input_file": "wheels/shared/pyasn1_modules-0.2.8-py2.py3-none-any.whl"
+                "input_file": "wheels/shared/pyasn1_modules-0.3.0-py2.py3-none-any.whl"
             },
             {
                 "module": "pyparsing",
-                "input_file": "wheels/py3/pyparsing-3.0.9-py3-none-any.whl"
+                "input_file": "wheels/py3/pyparsing-3.1.1-py3-none-any.whl"
             },
             {
                 "module": "python_dateutil",
                 "input_file": "wheels/shared/python_dateutil-2.8.2-py2.py3-none-any.whl"
-            },
-            {
-                "module": "requests",
-                "input_file": "wheels/shared/requests-2.25.0-py2.py3-none-any.whl"
             },
             {
                 "module": "rsa",
@@ -118,10 +102,6 @@
             {
                 "module": "uritemplate",
                 "input_file": "wheels/shared/uritemplate-3.0.0-py2.py3-none-any.whl"
-            },
-            {
-                "module": "urllib3",
-                "input_file": "wheels/shared/urllib3-1.26.12-py2.py3-none-any.whl"
             }
         ]
     },
@@ -454,20 +434,12 @@
                 "input_file": "wheels/shared/cachetools-2.0.1-py2.py3-none-any.whl"
             },
             {
-                "module": "certifi",
-                "input_file": "wheels/py3/certifi-2022.9.24-py3-none-any.whl"
-            },
-            {
-                "module": "chardet",
-                "input_file": "wheels/shared/chardet-3.0.4-py2.py3-none-any.whl"
-            },
-            {
                 "module": "google_api_core",
-                "input_file": "wheels/py3/google_api_core-2.10.2-py3-none-any.whl"
+                "input_file": "wheels/py3/google_api_core-2.14.0-py3-none-any.whl"
             },
             {
                 "module": "google_auth",
-                "input_file": "wheels/shared/google_auth-2.13.0-py2.py3-none-any.whl"
+                "input_file": "wheels/shared/google_auth-2.25.1-py2.py3-none-any.whl"
             },
             {
                 "module": "google_cloud_bigquery",
@@ -475,7 +447,7 @@
             },
             {
                 "module": "google_cloud_core",
-                "input_file": "wheels/shared/google_cloud_core-2.3.2-py2.py3-none-any.whl"
+                "input_file": "wheels/shared/google_cloud_core-2.3.3-py2.py3-none-any.whl"
             },
             {
                 "module": "google_crc32c",
@@ -483,35 +455,31 @@
             },
             {
                 "module": "google_resumable_media",
-                "input_file": "wheels/shared/google_resumable_media-2.4.0-py2.py3-none-any.whl"
+                "input_file": "wheels/shared/google_resumable_media-2.6.0-py2.py3-none-any.whl"
             },
             {
                 "module": "googleapis_common_protos",
-                "input_file": "wheels/shared/googleapis_common_protos-1.56.4-py2.py3-none-any.whl"
+                "input_file": "wheels/shared/googleapis_common_protos-1.61.0-py2.py3-none-any.whl"
             },
             {
                 "module": "grpcio",
-                "input_file": "wheels/py39/grpcio-1.50.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+                "input_file": "wheels/py39/grpcio-1.59.3-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
             },
             {
                 "module": "grpcio_status",
-                "input_file": "wheels/py3/grpcio_status-1.50.0-py3-none-any.whl"
-            },
-            {
-                "module": "idna",
-                "input_file": "wheels/shared/idna-2.10-py2.py3-none-any.whl"
+                "input_file": "wheels/py3/grpcio_status-1.59.3-py3-none-any.whl"
             },
             {
                 "module": "packaging",
-                "input_file": "wheels/py3/packaging-21.3-py3-none-any.whl"
+                "input_file": "wheels/py3/packaging-23.2-py3-none-any.whl"
             },
             {
                 "module": "proto_plus",
-                "input_file": "wheels/py3/proto_plus-1.22.1-py3-none-any.whl"
+                "input_file": "wheels/py3/proto_plus-1.22.3-py3-none-any.whl"
             },
             {
                 "module": "protobuf",
-                "input_file": "wheels/py3/protobuf-4.21.8-cp37-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl"
+                "input_file": "wheels/py3/protobuf-4.25.1-cp37-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl"
             },
             {
                 "module": "pyasn1",
@@ -519,19 +487,11 @@
             },
             {
                 "module": "pyasn1_modules",
-                "input_file": "wheels/shared/pyasn1_modules-0.2.8-py2.py3-none-any.whl"
-            },
-            {
-                "module": "pyparsing",
-                "input_file": "wheels/py3/pyparsing-3.0.9-py3-none-any.whl"
+                "input_file": "wheels/shared/pyasn1_modules-0.3.0-py2.py3-none-any.whl"
             },
             {
                 "module": "python_dateutil",
                 "input_file": "wheels/shared/python_dateutil-2.8.2-py2.py3-none-any.whl"
-            },
-            {
-                "module": "requests",
-                "input_file": "wheels/shared/requests-2.25.0-py2.py3-none-any.whl"
             },
             {
                 "module": "rsa",
@@ -544,10 +504,6 @@
             {
                 "module": "uritemplate",
                 "input_file": "wheels/shared/uritemplate-3.0.0-py2.py3-none-any.whl"
-            },
-            {
-                "module": "urllib3",
-                "input_file": "wheels/shared/urllib3-1.26.12-py2.py3-none-any.whl"
             }
         ]
     }

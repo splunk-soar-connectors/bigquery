@@ -9,7 +9,7 @@
     "product_name": "Big Query",
     "product_version_regex": ".*",
     "publisher": "Splunk",
-    "license": "Copyright (c) 2018-2023 Splunk Inc.",
+    "license": "Copyright (c) 2018-2024 Splunk Inc.",
     "app_version": "2.1.1",
     "utctime_updated": "2022-02-02T18:30:29.000000Z",
     "package_name": "phantom_bigquery",
@@ -36,10 +36,6 @@
                 "input_file": "wheels/shared/google_auth-2.22.0-py2.py3-none-any.whl"
             },
             {
-                "module": "google_cloud_bigquery",
-                "input_file": "wheels/shared/google_cloud_bigquery-2.31.0-py2.py3-none-any.whl"
-            },
-            {
                 "module": "google_cloud_core",
                 "input_file": "wheels/shared/google_cloud_core-2.3.1-py2.py3-none-any.whl"
             },
@@ -56,20 +52,12 @@
                 "input_file": "wheels/shared/googleapis_common_protos-1.56.3-py2.py3-none-any.whl"
             },
             {
-                "module": "grpcio",
-                "input_file": "wheels/py36/grpcio-1.48.2-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
-            },
-            {
-                "module": "grpcio_status",
-                "input_file": "wheels/py3/grpcio_status-1.48.2-py3-none-any.whl"
-            },
-            {
                 "module": "packaging",
                 "input_file": "wheels/py3/packaging-21.3-py3-none-any.whl"
             },
             {
                 "module": "proto_plus",
-                "input_file": "wheels/py3/proto_plus-1.22.3-py3-none-any.whl"
+                "input_file": "wheels/py3/proto_plus-1.23.0-py3-none-any.whl"
             },
             {
                 "module": "protobuf",
@@ -85,11 +73,11 @@
             },
             {
                 "module": "pyparsing",
-                "input_file": "wheels/py3/pyparsing-3.1.1-py3-none-any.whl"
+                "input_file": "wheels/py3/pyparsing-3.1.2-py3-none-any.whl"
             },
             {
                 "module": "python_dateutil",
-                "input_file": "wheels/shared/python_dateutil-2.8.2-py2.py3-none-any.whl"
+                "input_file": "wheels/shared/python_dateutil-2.9.0.post0-py2.py3-none-any.whl"
             },
             {
                 "module": "rsa",
@@ -435,19 +423,15 @@
             },
             {
                 "module": "google_api_core",
-                "input_file": "wheels/py3/google_api_core-2.14.0-py3-none-any.whl"
+                "input_file": "wheels/py3/google_api_core-2.18.0-py3-none-any.whl"
             },
             {
                 "module": "google_auth",
-                "input_file": "wheels/shared/google_auth-2.25.1-py2.py3-none-any.whl"
-            },
-            {
-                "module": "google_cloud_bigquery",
-                "input_file": "wheels/shared/google_cloud_bigquery-2.31.0-py2.py3-none-any.whl"
+                "input_file": "wheels/shared/google_auth-2.29.0-py2.py3-none-any.whl"
             },
             {
                 "module": "google_cloud_core",
-                "input_file": "wheels/shared/google_cloud_core-2.3.3-py2.py3-none-any.whl"
+                "input_file": "wheels/shared/google_cloud_core-2.4.1-py2.py3-none-any.whl"
             },
             {
                 "module": "google_crc32c",
@@ -455,31 +439,23 @@
             },
             {
                 "module": "google_resumable_media",
-                "input_file": "wheels/shared/google_resumable_media-2.6.0-py2.py3-none-any.whl"
+                "input_file": "wheels/shared/google_resumable_media-2.7.0-py2.py3-none-any.whl"
             },
             {
                 "module": "googleapis_common_protos",
-                "input_file": "wheels/shared/googleapis_common_protos-1.61.0-py2.py3-none-any.whl"
-            },
-            {
-                "module": "grpcio",
-                "input_file": "wheels/py39/grpcio-1.59.3-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
-            },
-            {
-                "module": "grpcio_status",
-                "input_file": "wheels/py3/grpcio_status-1.59.3-py3-none-any.whl"
+                "input_file": "wheels/shared/googleapis_common_protos-1.63.0-py2.py3-none-any.whl"
             },
             {
                 "module": "packaging",
-                "input_file": "wheels/py3/packaging-23.2-py3-none-any.whl"
+                "input_file": "wheels/py3/packaging-24.0-py3-none-any.whl"
             },
             {
                 "module": "proto_plus",
-                "input_file": "wheels/py3/proto_plus-1.22.3-py3-none-any.whl"
+                "input_file": "wheels/py3/proto_plus-1.23.0-py3-none-any.whl"
             },
             {
                 "module": "protobuf",
-                "input_file": "wheels/py3/protobuf-4.25.1-cp37-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl"
+                "input_file": "wheels/py3/protobuf-4.25.3-cp37-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl"
             },
             {
                 "module": "pyasn1",
@@ -491,7 +467,7 @@
             },
             {
                 "module": "python_dateutil",
-                "input_file": "wheels/shared/python_dateutil-2.8.2-py2.py3-none-any.whl"
+                "input_file": "wheels/shared/python_dateutil-2.9.0.post0-py2.py3-none-any.whl"
             },
             {
                 "module": "rsa",

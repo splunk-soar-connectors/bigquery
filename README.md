@@ -2,7 +2,7 @@
 # Big Query
 
 Publisher: Splunk  
-Connector Version: 2.1.1  
+Connector Version: 2.1.2  
 Product Vendor: Google  
 Product Name: Big Query  
 Product Version Supported (regex): ".\*"  

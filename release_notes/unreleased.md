@@ -1,2 +1,2 @@
 **Unreleased**
-* Updated requests grpcio in order to use platform packages
+* Updated grpcio in order to use platform packages [PAPP-33462]

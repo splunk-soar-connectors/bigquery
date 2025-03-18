@@ -1,6 +1,6 @@
 # File: bigquery_connector.py
 #
-# Copyright (c) 2018-2024 Splunk Inc.
+# Copyright (c) 2018-2025 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -31,6 +31,7 @@ from phantom.base_connector import BaseConnector
 
 from bigquery_consts import *
 
+
 # "What's going on here?"
 # Wheel files don't install how you expect (want?) them to if they would all go into the same directory
 # For example, bigquery gets installed to google/cloud/bigquery, their auth gets installed to google/auth
@@ -45,21 +46,20 @@ from bigquery_consts import *
 # This patch fixes that. Granted, every file is now going to be __version__ 1.0.0, but that shouldn't cause any problems
 
 
-
 class VersionObj(object):  # noqa
-    version = "1.0.0"      # noqa
+    version = "1.0.0"
 
 
-_old_get_distribution = pkg_resources.get_distribution  # noqa
+_old_get_distribution = pkg_resources.get_distribution
 
 
-def _tmp_get_distribution(package_name):  # noqa
-    return VersionObj()                   # noqa
+def _tmp_get_distribution(package_name):
+    return VersionObj()
 
 
-pkg_resources.get_distribution = _tmp_get_distribution  # noqa
+pkg_resources.get_distribution = _tmp_get_distribution
 
-pkg_resources.get_distribution = _old_get_distribution  # noqa
+pkg_resources.get_distribution = _old_get_distribution
 
 
 class RetVal(tuple):
@@ -68,11 +68,9 @@ class RetVal(tuple):
 
 
 class BigQueryConnector(BaseConnector):
-
     def __init__(self):
-
         # Call the BaseConnectors init first
-        super(BigQueryConnector, self).__init__()
+        super().__init__()
         self._state = None
 
     def is_positive_non_zero_int(self, value):
@@ -92,14 +90,11 @@ class BigQueryConnector(BaseConnector):
 
     def _create_client(self):
         config = self.get_config()
-        service_account_json = json.loads(config['key_json'])
+        service_account_json = json.loads(config["key_json"])
 
         credentials = service_account.Credentials.from_service_account_info(service_account_json)
 
-        client = bigquery.Client(
-            project=service_account_json['project_id'],
-            credentials=credentials
-        )
+        client = bigquery.Client(project=service_account_json["project_id"], credentials=credentials)
 
         return client
 
@@ -124,7 +119,7 @@ class BigQueryConnector(BaseConnector):
 
     def _handle_list_tables(self, param):
         action_result = self.add_action_result(ActionResult(dict(param)))
-        dataset = param.get('dataset')
+        dataset = param.get("dataset")
 
         try:
             client = self._create_client()
@@ -147,16 +142,18 @@ class BigQueryConnector(BaseConnector):
         try:
             for dataset_ref in dataset_ref_list:
                 for table in client.list_tables(dataset_ref):
-                    action_result.add_data({
-                        'table_id': table.table_id,
-                        'dataset_id': dataset_ref.dataset_id,
-                        'project_id': dataset_ref.project,
-                        'full_table_id': table.full_table_id,
-                    })
+                    action_result.add_data(
+                        {
+                            "table_id": table.table_id,
+                            "dataset_id": dataset_ref.dataset_id,
+                            "project_id": dataset_ref.project,
+                            "full_table_id": table.full_table_id,
+                        }
+                    )
         except Exception as e:
             return action_result.set_status(phantom.APP_ERROR, "Error listing dataset", e)
 
-        action_result.update_summary({'total_tables': action_result.get_data_size()})
+        action_result.update_summary({"total_tables": action_result.get_data_size()})
 
         return action_result.set_status(phantom.APP_SUCCESS, "Successfully listed tables")
 
@@ -165,9 +162,7 @@ class BigQueryConnector(BaseConnector):
         try:
             result = query_job.result(timeout=timeout)
         except TimeoutError:
-            action_result.update_summary({
-                'job_id': query_job.job_id
-            })
+            action_result.update_summary({"job_id": query_job.job_id})
             return action_result.set_status(phantom.APP_SUCCESS, "Timed out while waiting for results")
         except Exception as e:
             return action_result.set_status(phantom.APP_ERROR, "Error getting results from query", e)
@@ -178,19 +173,16 @@ class BigQueryConnector(BaseConnector):
         except:
             pass
 
-        action_result.update_summary({
-            'num_rows': action_result.get_data_size(),
-            'job_id': query_job.job_id
-        })
+        action_result.update_summary({"num_rows": action_result.get_data_size(), "job_id": query_job.job_id})
 
         return action_result.set_status(phantom.APP_SUCCESS, "Successfully retrieved results from Query")
 
     def _handle_get_results(self, param):
         action_result = self.add_action_result(ActionResult(dict(param)))
-        job_id = param['job_id']
-        timeout = param.get('timeout')
+        job_id = param["job_id"]
+        timeout = param.get("timeout")
         if not (timeout is None or self.is_positive_non_zero_int(timeout)):
-            return action_result.set_status(phantom.APP_ERROR, 'Please provide a positive integer in timeout')
+            return action_result.set_status(phantom.APP_ERROR, "Please provide a positive integer in timeout")
 
         try:
             client = self._create_client()
@@ -207,10 +199,10 @@ class BigQueryConnector(BaseConnector):
 
     def _handle_run_query(self, param):
         action_result = self.add_action_result(ActionResult(dict(param)))
-        query = param['query']
-        timeout = param.get('timeout')
+        query = param["query"]
+        timeout = param.get("timeout")
         if not (timeout is None or self.is_positive_non_zero_int(timeout)):
-            return action_result.set_status(phantom.APP_ERROR, 'Please provide a positive integer in timeout')
+            return action_result.set_status(phantom.APP_ERROR, "Please provide a positive integer in timeout")
 
         self.save_progress("Running query...")
         try:
@@ -223,7 +215,6 @@ class BigQueryConnector(BaseConnector):
         return self._get_query_results(action_result, query_job, timeout)
 
     def handle_action(self, param):
-
         ret_val = phantom.APP_SUCCESS
 
         # Get the action that we are supposed to execute for this App Run
@@ -231,23 +222,22 @@ class BigQueryConnector(BaseConnector):
 
         self.debug_print("action_id", self.get_action_identifier())
 
-        if action_id == 'test_connectivity':
+        if action_id == "test_connectivity":
             ret_val = self._handle_test_connectivity(param)
 
-        elif action_id == 'get_results':
+        elif action_id == "get_results":
             ret_val = self._handle_get_results(param)
 
-        elif action_id == 'list_tables':
+        elif action_id == "list_tables":
             ret_val = self._handle_list_tables(param)
 
-        elif action_id == 'run_query':
+        elif action_id == "run_query":
             ret_val = self._handle_run_query(param)
 
         return ret_val
 
 
-if __name__ == '__main__':
-
+if __name__ == "__main__":
     import argparse
     import sys
 
@@ -257,10 +247,10 @@ if __name__ == '__main__':
 
     argparser = argparse.ArgumentParser()
 
-    argparser.add_argument('input_test_json', help='Input Test JSON file')
-    argparser.add_argument('-u', '--username', help='username', required=False)
-    argparser.add_argument('-p', '--password', help='password', required=False)
-    argparser.add_argument('-v', '--verify', action='store_true', help='verify', required=False, default=False)
+    argparser.add_argument("input_test_json", help="Input Test JSON file")
+    argparser.add_argument("-u", "--username", help="username", required=False)
+    argparser.add_argument("-p", "--password", help="password", required=False)
+    argparser.add_argument("-v", "--verify", action="store_true", help="verify", required=False, default=False)
 
     args = argparser.parse_args()
     session_id = None
@@ -270,31 +260,31 @@ if __name__ == '__main__':
     verify = args.verify
 
     if username is not None and password is None:
-
         # User specified a username but not a password, so ask
         import getpass
+
         password = getpass.getpass("Password: ")
 
     if username and password:
         try:
             print("Accessing the Login page")
-            r = requests.get("{}login".format(BaseConnector._get_phantom_base_url()), verify=verify, timeout=DEFAULT_TIMEOUT)
-            csrftoken = r.cookies['csrftoken']
+            r = requests.get(f"{BaseConnector._get_phantom_base_url()}login", verify=verify, timeout=DEFAULT_TIMEOUT)
+            csrftoken = r.cookies["csrftoken"]
 
             data = dict()
-            data['username'] = username
-            data['password'] = password
-            data['csrfmiddlewaretoken'] = csrftoken
+            data["username"] = username
+            data["password"] = password
+            data["csrfmiddlewaretoken"] = csrftoken
 
             headers = dict()
-            headers['Cookie'] = 'csrftoken=' + csrftoken
-            headers['Referer'] = "{}login".format(BaseConnector._get_phantom_base_url())
+            headers["Cookie"] = "csrftoken=" + csrftoken
+            headers["Referer"] = f"{BaseConnector._get_phantom_base_url()}login"
 
             print("Logging into Platform to get the session id")
             r2 = requests.post(
-                "{}login".format(BaseConnector._get_phantom_base_url()),
-                verify=verify, data=data, headers=headers, timeout=DEFAULT_TIMEOUT)
-            session_id = r2.cookies['sessionid']
+                f"{BaseConnector._get_phantom_base_url()}login", verify=verify, data=data, headers=headers, timeout=DEFAULT_TIMEOUT
+            )
+            session_id = r2.cookies["sessionid"]
         except Exception as e:
             print("Unable to get session id from the platfrom. Error: " + str(e))
             sys.exit(1)
@@ -312,7 +302,7 @@ if __name__ == '__main__':
         connector.print_progress_message = True
 
         if session_id is not None:
-            in_json['user_session_token'] = session_id
+            in_json["user_session_token"] = session_id
 
         ret_val = connector._handle_action(json.dumps(in_json), None)
         print(json.dumps(json.loads(ret_val), indent=4))

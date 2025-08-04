@@ -18,7 +18,7 @@
     "latest_tested_versions": [
         "Cloud, tested on July 8, 2021"
     ],
-    "python_version": "3.9, 3.13",
+    "python_version": "3.9",
     "fips_compliant": true,
     "app_wizard_version": "1.0.0",
     "configuration": {

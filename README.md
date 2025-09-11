@@ -1,9 +1,9 @@
 # Big Query
 
-Publisher: Splunk \
-Connector Version: 2.1.6 \
-Product Vendor: Google \
-Product Name: Big Query \
+Publisher: Splunk <br>
+Connector Version: 2.1.6 <br>
+Product Vendor: Google <br>
+Product Name: Big Query <br>
 Minimum Product Version: 5.3.0
 
 This app allows running investigative actions against Google BigQuery
@@ -39,16 +39,16 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 
 ### Supported Actions
 
-[test connectivity](#action-test-connectivity) - Validate the asset configuration for connectivity using supplied configuration \
-[list tables](#action-list-tables) - List Tables \
-[get results](#action-get-results) - Get results from a job started with 'run query' \
+[test connectivity](#action-test-connectivity) - Validate the asset configuration for connectivity using supplied configuration <br>
+[list tables](#action-list-tables) - List Tables <br>
+[get results](#action-get-results) - Get results from a job started with 'run query' <br>
 [run query](#action-run-query) - Run a Query
 
 ## action: 'test connectivity'
 
 Validate the asset configuration for connectivity using supplied configuration
 
-Type: **test** \
+Type: **test** <br>
 Read only: **True**
 
 #### Action Parameters
@@ -63,7 +63,7 @@ No Output
 
 List Tables
 
-Type: **investigate** \
+Type: **investigate** <br>
 Read only: **True**
 
 #### Action Parameters
@@ -91,7 +91,7 @@ summary.total_objects_successful | numeric | | 1 |
 
 Get results from a job started with 'run query'
 
-Type: **investigate** \
+Type: **investigate** <br>
 Read only: **True**
 
 #### Action Parameters
@@ -119,7 +119,7 @@ summary.total_objects_successful | numeric | | 1 |
 
 Run a Query
 
-Type: **investigate** \
+Type: **investigate** <br>
 Read only: **False**
 
 #### Action Parameters

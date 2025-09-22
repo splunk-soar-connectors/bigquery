@@ -351,11 +351,11 @@
             },
             {
                 "module": "google_api_core",
-                "input_file": "wheels/py3/google_api_core-2.24.2-py3-none-any.whl"
+                "input_file": "wheels/py3/google_api_core-2.25.1-py3-none-any.whl"
             },
             {
                 "module": "google_auth",
-                "input_file": "wheels/shared/google_auth-2.38.0-py2.py3-none-any.whl"
+                "input_file": "wheels/shared/google_auth-2.40.3-py2.py3-none-any.whl"
             },
             {
                 "module": "google_cloud_bigquery",
@@ -375,19 +375,19 @@
             },
             {
                 "module": "googleapis_common_protos",
-                "input_file": "wheels/py3/googleapis_common_protos-1.69.2-py3-none-any.whl"
+                "input_file": "wheels/py3/googleapis_common_protos-1.70.0-py3-none-any.whl"
             },
             {
                 "module": "grpcio",
-                "input_file": "wheels/py39/grpcio-1.72.0rc1-cp39-cp39-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
+                "input_file": "wheels/py39/grpcio-1.74.0-cp39-cp39-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
             },
             {
                 "module": "grpcio_status",
-                "input_file": "wheels/py3/grpcio_status-1.72.0rc1-py3-none-any.whl"
+                "input_file": "wheels/py3/grpcio_status-1.74.0-py3-none-any.whl"
             },
             {
                 "module": "packaging",
-                "input_file": "wheels/py3/packaging-24.2-py3-none-any.whl"
+                "input_file": "wheels/py3/packaging-25.0-py3-none-any.whl"
             },
             {
                 "module": "proto_plus",
@@ -395,7 +395,7 @@
             },
             {
                 "module": "protobuf",
-                "input_file": "wheels/py39/protobuf-6.30.2-cp39-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
+                "input_file": "wheels/py39/protobuf-6.32.0-cp39-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
             },
             {
                 "module": "pyasn1",
@@ -411,7 +411,7 @@
             },
             {
                 "module": "uritemplate",
-                "input_file": "wheels/shared/uritemplate-3.0.0-py2.py3-none-any.whl"
+                "input_file": "wheels/shared/uritemplate-3.0.1-py2.py3-none-any.whl"
             }
         ]
     },
@@ -423,11 +423,11 @@
             },
             {
                 "module": "google_api_core",
-                "input_file": "wheels/py3/google_api_core-2.24.2-py3-none-any.whl"
+                "input_file": "wheels/py3/google_api_core-2.25.1-py3-none-any.whl"
             },
             {
                 "module": "google_auth",
-                "input_file": "wheels/shared/google_auth-2.38.0-py2.py3-none-any.whl"
+                "input_file": "wheels/shared/google_auth-2.40.3-py2.py3-none-any.whl"
             },
             {
                 "module": "google_cloud_bigquery",
@@ -447,19 +447,19 @@
             },
             {
                 "module": "googleapis_common_protos",
-                "input_file": "wheels/py3/googleapis_common_protos-1.69.2-py3-none-any.whl"
+                "input_file": "wheels/py3/googleapis_common_protos-1.70.0-py3-none-any.whl"
             },
             {
                 "module": "grpcio",
-                "input_file": "wheels/py313/grpcio-1.72.0rc1-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
+                "input_file": "wheels/py313/grpcio-1.74.0-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
             },
             {
                 "module": "grpcio_status",
-                "input_file": "wheels/py3/grpcio_status-1.72.0rc1-py3-none-any.whl"
+                "input_file": "wheels/py3/grpcio_status-1.74.0-py3-none-any.whl"
             },
             {
                 "module": "packaging",
-                "input_file": "wheels/py3/packaging-24.2-py3-none-any.whl"
+                "input_file": "wheels/py3/packaging-25.0-py3-none-any.whl"
             },
             {
                 "module": "proto_plus",
@@ -467,7 +467,7 @@
             },
             {
                 "module": "protobuf",
-                "input_file": "wheels/py39/protobuf-6.30.2-cp39-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
+                "input_file": "wheels/py39/protobuf-6.32.0-cp39-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
             },
             {
                 "module": "pyasn1",
@@ -483,7 +483,7 @@
             },
             {
                 "module": "uritemplate",
-                "input_file": "wheels/shared/uritemplate-3.0.0-py2.py3-none-any.whl"
+                "input_file": "wheels/shared/uritemplate-3.0.1-py2.py3-none-any.whl"
             }
         ]
     }

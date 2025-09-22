@@ -2,4 +2,4 @@ cachetools==2.0.1
 google-cloud-bigquery==3.19.0
 pyasn1==0.4.6
 rsa==4.7.2
-uritemplate==3.0.0
+uritemplate==3.0.1

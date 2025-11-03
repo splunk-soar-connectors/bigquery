@@ -355,7 +355,7 @@
             },
             {
                 "module": "google_auth",
-                "input_file": "wheels/shared/google_auth-2.42.0-py2.py3-none-any.whl"
+                "input_file": "wheels/shared/google_auth-2.42.1-py2.py3-none-any.whl"
             },
             {
                 "module": "google_cloud_bigquery",
@@ -363,7 +363,7 @@
             },
             {
                 "module": "google_cloud_core",
-                "input_file": "wheels/shared/google_cloud_core-2.4.3-py2.py3-none-any.whl"
+                "input_file": "wheels/py3/google_cloud_core-2.5.0-py3-none-any.whl"
             },
             {
                 "module": "google_crc32c",
@@ -431,7 +431,7 @@
             },
             {
                 "module": "google_auth",
-                "input_file": "wheels/shared/google_auth-2.42.0-py2.py3-none-any.whl"
+                "input_file": "wheels/shared/google_auth-2.42.1-py2.py3-none-any.whl"
             },
             {
                 "module": "google_cloud_bigquery",
@@ -439,7 +439,7 @@
             },
             {
                 "module": "google_cloud_core",
-                "input_file": "wheels/shared/google_cloud_core-2.4.3-py2.py3-none-any.whl"
+                "input_file": "wheels/py3/google_cloud_core-2.5.0-py3-none-any.whl"
             },
             {
                 "module": "google_crc32c",

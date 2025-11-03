@@ -21,9 +21,9 @@ from google.cloud import bigquery  # isort:skip
 
 import json
 from concurrent.futures import TimeoutError
+from importlib.metadata import distribution
 
 import phantom.app as phantom
-import pkg_resources
 import requests
 from google.oauth2 import service_account
 from phantom.action_result import ActionResult
@@ -50,16 +50,19 @@ class VersionObj(object):  # noqa
     version = "1.0.0"
 
 
-_old_get_distribution = pkg_resources.get_distribution
+_old_distribution = distribution
 
 
-def _tmp_get_distribution(package_name):
+def _tmp_distribution(package_name):
     return VersionObj()
 
 
-pkg_resources.get_distribution = _tmp_get_distribution
+# Monkey-patch importlib.metadata.distribution temporarily
+import importlib.metadata
 
-pkg_resources.get_distribution = _old_get_distribution
+
+importlib.metadata.distribution = _tmp_distribution
+importlib.metadata.distribution = _old_distribution
 
 
 class RetVal(tuple):

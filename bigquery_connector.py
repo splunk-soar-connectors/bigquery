@@ -1,6 +1,6 @@
 # File: bigquery_connector.py
 #
-# Copyright (c) 2018-2025 Splunk Inc.
+# Copyright (c) 2018-2026 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -166,7 +166,10 @@ class BigQueryConnector(BaseConnector):
             result = query_job.result(timeout=timeout)
         except TimeoutError:
             action_result.update_summary({"job_id": query_job.job_id})
-            return action_result.set_status(phantom.APP_SUCCESS, "Timed out while waiting for results")
+            return action_result.set_status(
+                phantom.APP_ERROR,
+                "Timed out while waiting for results; use the get results action with the returned job ID to continue polling",
+            )
         except Exception as e:
             return action_result.set_status(phantom.APP_ERROR, "Error getting results from query", e)
 

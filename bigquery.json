@@ -355,7 +355,7 @@
             },
             {
                 "module": "cryptography",
-                "input_file": "wheels/py39/cryptography-50.0.0-cp39-abi3-manylinux_2_28_x86_64.whl"
+                "input_file": "wheels/py39/cryptography-50.0.1-cp39-abi3-manylinux_2_28_x86_64.whl"
             },
             {
                 "module": "google_api_core",
@@ -443,7 +443,7 @@
             },
             {
                 "module": "cryptography",
-                "input_file": "wheels/py3/cryptography-50.0.0-cp311-abi3-manylinux_2_28_x86_64.whl"
+                "input_file": "wheels/py3/cryptography-50.0.1-cp311-abi3-manylinux_2_28_x86_64.whl"
             },
             {
                 "module": "google_api_core",
@@ -459,7 +459,7 @@
             },
             {
                 "module": "google_cloud_core",
-                "input_file": "wheels/py3/google_cloud_core-2.6.0-py3-none-any.whl"
+                "input_file": "wheels/py3/google_cloud_core-2.7.0-py3-none-any.whl"
             },
             {
                 "module": "google_crc32c",
@@ -467,11 +467,11 @@
             },
             {
                 "module": "google_resumable_media",
-                "input_file": "wheels/py3/google_resumable_media-2.10.0-py3-none-any.whl"
+                "input_file": "wheels/py3/google_resumable_media-2.10.2-py3-none-any.whl"
             },
             {
                 "module": "googleapis_common_protos",
-                "input_file": "wheels/py3/googleapis_common_protos-1.75.0-py3-none-any.whl"
+                "input_file": "wheels/py3/googleapis_common_protos-1.75.3-py3-none-any.whl"
             },
             {
                 "module": "grpcio",
@@ -491,7 +491,7 @@
             },
             {
                 "module": "protobuf",
-                "input_file": "wheels/py3/protobuf-7.35.1-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
+                "input_file": "wheels/py3/protobuf-7.36.1-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
             },
             {
                 "module": "pyasn1",

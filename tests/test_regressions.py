@@ -13,7 +13,10 @@
 # limitations under the License.
 import importlib
 import json
+import subprocess
+import sys
 from concurrent.futures import TimeoutError
+from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import MagicMock, patch
 
@@ -181,15 +184,44 @@ def test_query_widget_keeps_each_result_and_empty_state():
     first = SimpleNamespace(get_data=lambda: [{"z": "<safe>", "a": 1}])
     second = SimpleNamespace(get_data=lambda: [{"b": 2}])
     empty = SimpleNamespace(get_data=lambda: [])
-    context = {}
+    context = {"title1": "Run query", "title2": "BigQuery"}
 
-    html = display_query_results(None, [(None, [first, second, empty])], context)
+    template = display_query_results(None, [(None, [first, second, empty])], context)
 
     assert [result["headers"] for result in context["results"]] == [["a", "z"], ["b"], []]
-    assert html.count('<table class="phantom-table dataTable">') == 2
-    assert "&lt;safe&gt;" in html
-    assert "No data found" in html
+    assert context["results"][0]["data"] == [[{"value": 1}, {"value": "<safe>"}]]
+    assert context["results"][2]["data"] == []
     assert context["prerender"] is True
+    assert "Run query" in template
+    assert '<span class="semi-bold">BigQuery</span>' in template
+    assert '<table class="phantom-table dataTable">' in template
+    assert "&lt;safe&gt;" in template
+
+
+def test_query_view_resolves_from_fresh_root_import():
+    code = """
+import importlib
+from soar_sdk.action_results import ActionResult
+
+view = importlib.import_module("src")
+for part in "views.query.display_query_results".split("."):
+    view = getattr(view, part)
+
+result = ActionResult(True, "Successfully retrieved results from Query")
+result.add_data({"word": "<safe>"})
+context = {}
+html = view("run query", [(None, [result])], context)
+assert context["prerender"] is True
+assert "&lt;safe&gt;" in html
+"""
+    result = subprocess.run(
+        [sys.executable, "-c", code],
+        cwd=Path(__file__).resolve().parents[1],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert result.returncode == 0, result.stderr
 
 
 def test_make_request_returns_raw_api_error_and_keeps_auth_on_bigquery(asset):

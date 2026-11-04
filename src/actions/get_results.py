@@ -73,13 +73,15 @@ def _query_results(result: ActionResult, job, timeout: int | float | None) -> Ac
             "Timed out while waiting for results; use the get results action with the returned job ID to continue polling",
         )
     except Exception as exc:
+        result.set_summary({"job_id": job.job_id})
         return _failure(result, "Error getting results from query", exc)
 
     try:
         for row in rows:
             result.add_data(dict(row))
-    except Exception:
-        pass  # Legacy behavior: queries without iterable rows still succeed.
+    except Exception as exc:
+        result.set_summary({"job_id": job.job_id})
+        return _failure(result, "Error processing query results", exc)
 
     result.set_summary({"num_rows": len(result.get_data()), "job_id": job.job_id})
     result.set_status(True, "Successfully retrieved results from Query")

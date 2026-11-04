@@ -141,6 +141,35 @@ def test_timeout_result_keeps_job_id_in_sdk_action_result(asset, client):
     assert app.actions_manager.get_results()[-1].get_summary() == {"job_id": "job-123"}
 
 
+def test_query_result_failure_keeps_job_id(asset, client):
+    job = MagicMock(job_id="job-123")
+    job.result.side_effect = RuntimeError("query failed")
+    client.query.return_value = job
+
+    result = run_query(RunQueryParams(query="SELECT 1", timeout=20), asset)
+
+    assert not result.get_status()
+    assert result.get_summary() == {"job_id": "job-123"}
+    assert result.get_message() == "Error getting results from query. Error string: 'query failed'"
+
+
+def test_query_result_iteration_failure_is_not_reported_as_success(asset, client):
+    def rows_with_page_error():
+        yield {"id": 1}
+        raise RuntimeError("page failed")
+
+    job = MagicMock(job_id="job-123")
+    job.result.return_value = rows_with_page_error()
+    client.query.return_value = job
+
+    result = run_query(RunQueryParams(query="SELECT 1", timeout=20), asset)
+
+    assert not result.get_status()
+    assert result.get_data() == [{"id": 1}]
+    assert result.get_summary() == {"job_id": "job-123"}
+    assert result.get_message() == "Error processing query results. Error string: 'page failed'"
+
+
 @pytest.mark.parametrize("timeout", [0, -1, "", "bad"])
 def test_invalid_query_timeout_keeps_legacy_message(asset, client, timeout):
     for action, params in (

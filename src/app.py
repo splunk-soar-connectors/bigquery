@@ -62,6 +62,7 @@ def _legacy_connectivity_result(param=None):
 
 
 _legacy_connectivity_result.meta = test_connectivity.meta
+_legacy_connectivity_result.params_class = test_connectivity.params_class
 app.actions_manager.set_action("test_connectivity", _legacy_connectivity_result)
 
 

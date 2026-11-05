@@ -5,7 +5,7 @@ description = "This app allows running investigative actions against Google BigQ
 license = "Copyright (c) 2018-2026 Splunk Inc."
 requires-python = ">=3.13, <3.15"
 dependencies = [
-    "splunk-soar-sdk>=6.1.5,<7",
+    "splunk-soar-sdk>=7.1.2,<8",
     "google-cloud-bigquery==3.35.1",
     "google-auth>=2.56.0,<3",
     "requests>=2.32,<3",

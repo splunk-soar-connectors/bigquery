@@ -15,6 +15,7 @@ from concurrent.futures import TimeoutError
 
 from pydantic import field_validator
 from soar_sdk import logging
+from soar_sdk.abstract import SOARClient
 from soar_sdk.action_results import ActionOutput, ActionResult, OutputField, PermissiveActionOutput
 from soar_sdk.params import Param, Params
 
@@ -45,9 +46,7 @@ class GetResultsParams(Params):
 
 
 class QueryOutput(PermissiveActionOutput):
-    @classmethod
-    def _to_json_schema(cls, parent_datapath="action_result.data.*", column_order_counter=None):
-        yield {"data_path": parent_datapath, "data_type": "string"}
+    pass
 
 
 class QuerySummary(ActionOutput):
@@ -55,51 +54,58 @@ class QuerySummary(ActionOutput):
     num_rows: int | None
 
 
-def _failure(result: ActionResult, message: str, exc: Exception | None = None) -> ActionResult:
+def _failure(
+    params: Params,
+    message: str,
+    exc: Exception | None = None,
+    job_id: str | None = None,
+    rows: list[dict] | None = None,
+) -> ActionResult:
     if exc is not None:
         message = f"{message}. Error string: '{exc}'"
-    result.set_status(False, message)
+    result = ActionResult(False, message, params.model_dump(exclude_unset=True))
+    if job_id is not None:
+        result.set_summary({"job_id": job_id})
+    for row in rows or []:
+        result.add_data(row)
     return result
 
 
-def _query_results(result: ActionResult, job, timeout: int | float | None) -> ActionResult:
+def _query_results(params: Params, soar: SOARClient, job, timeout: int | float | None):
     logging.progress("Waiting for query results...")
     try:
         rows = job.result(timeout=timeout)
     except TimeoutError:
-        result.set_summary({"job_id": job.job_id})
         return _failure(
-            result,
+            params,
             "Timed out while waiting for results; use the get results action with the returned job ID to continue polling",
+            job_id=job.job_id,
         )
     except Exception as exc:
-        result.set_summary({"job_id": job.job_id})
-        return _failure(result, "Error getting results from query", exc)
+        return _failure(params, "Error getting results from query", exc, job.job_id)
 
+    data = []
     try:
-        for row in rows:
-            result.add_data(dict(row))
+        data.extend(dict(row) for row in rows)
     except Exception as exc:
-        result.set_summary({"job_id": job.job_id})
-        return _failure(result, "Error processing query results", exc)
+        return _failure(params, "Error processing query results", exc, job.job_id, data)
 
-    result.set_summary({"num_rows": len(result.get_data()), "job_id": job.job_id})
-    result.set_status(True, "Successfully retrieved results from Query")
-    return result
+    soar.set_summary(QuerySummary(num_rows=len(data), job_id=job.job_id))
+    soar.set_message("Successfully retrieved results from Query")
+    return [QueryOutput(**row) for row in data]
 
 
-def get_results(params: GetResultsParams, asset: Asset):
-    result = ActionResult(True, "", params.model_dump(exclude_unset=True))
+def get_results(params: GetResultsParams, soar: SOARClient, asset: Asset):
     if params.timeout is not None and params.timeout <= 0:
-        return _failure(result, "Please provide a positive integer in timeout")
+        return _failure(params, "Please provide a positive integer in timeout")
     try:
         client = create_client(asset)
     except Exception as exc:
-        return _failure(result, "Error creating client", exc)
+        return _failure(params, "Error creating client", exc)
 
     logging.progress("Fetching jobs...")
     try:
         job = client.get_job(params.job_id)
     except Exception as exc:
-        return _failure(result, "Error fetching results", exc)
-    return _query_results(result, job, params.timeout)
+        return _failure(params, "Error fetching results", exc)
+    return _query_results(params, soar, job, params.timeout)

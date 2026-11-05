@@ -13,10 +13,11 @@
 # limitations under the License.
 from soar_sdk import logging
 from soar_sdk.app import App
+from soar_sdk.exceptions import ActionFailure
 
 from .actions import register_actions
 from .asset import Asset
-from .client import LegacyFailure, create_client
+from .client import create_client
 
 
 app = App(
@@ -42,28 +43,16 @@ def test_connectivity(asset: Asset) -> None:
         client = create_client(asset)
     except Exception as exc:
         logging.progress("Test Connectivity Failed")
-        raise LegacyFailure(f"Error creating client. Error string: '{exc}'") from exc
+        raise ActionFailure(f"Error creating client. Error string: '{exc}'") from exc
 
     logging.progress("Making test call to BigQuery...")
     try:
         [dataset.reference for dataset in client.list_datasets(max_results=1)]
     except Exception as exc:
         logging.progress("Test Connectivity Failed")
-        raise LegacyFailure(f"Error listing datasets. Error string: '{exc}'") from exc
+        raise ActionFailure(f"Error listing datasets. Error string: '{exc}'") from exc
 
     logging.progress("Test Connectivity Passed")
-
-
-def _legacy_connectivity_result(param=None):
-    success = test_connectivity(param)
-    if success:
-        app.actions_manager.get_results()[-1].set_status(True, "")
-    return success
-
-
-_legacy_connectivity_result.meta = test_connectivity.meta
-_legacy_connectivity_result.params_class = test_connectivity.params_class
-app.actions_manager.set_action("test_connectivity", _legacy_connectivity_result)
 
 
 register_actions(app)

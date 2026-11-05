@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 from soar_sdk import logging
+from soar_sdk.abstract import SOARClient
 from soar_sdk.action_results import ActionOutput, ActionResult, OutputField
 from soar_sdk.params import Param, Params
 
@@ -46,37 +47,44 @@ class ListTablesSummary(ActionOutput):
     total_tables: int
 
 
-def _failure(result: ActionResult, message: str, exc: Exception | None = None) -> ActionResult:
+def _failure(
+    params: ListTablesParams,
+    message: str,
+    exc: Exception | None = None,
+    rows: list[dict] | None = None,
+) -> ActionResult:
     if exc is not None:
         message = f"{message}. Error string: '{exc}'"
-    result.set_status(False, message)
+    result = ActionResult(False, message, params.model_dump(exclude_unset=True))
+    for row in rows or []:
+        result.add_data(row)
     return result
 
 
-def list_tables(params: ListTablesParams, asset: Asset):
-    result = ActionResult(True, "", params.model_dump(exclude_unset=True))
+def list_tables(params: ListTablesParams, soar: SOARClient, asset: Asset):
     try:
         client = create_client(asset)
     except Exception as exc:
-        return _failure(result, "Error creating client", exc)
+        return _failure(params, "Error creating client", exc)
 
     logging.progress("Querying tables list...")
     if params.dataset:
         try:
             datasets = [client.dataset(params.dataset)]
         except Exception as exc:
-            return _failure(result, "Unable to retrieve specified dataset", exc)
+            return _failure(params, "Unable to retrieve specified dataset", exc)
     else:
         try:
             datasets = [item.reference for item in client.list_datasets()]
         except Exception as exc:
-            return _failure(result, "Error creating a list of datasets", exc)
+            return _failure(params, "Error creating a list of datasets", exc)
 
     logging.progress("Processing tables list...")
+    rows = []
     try:
         for dataset in datasets:
             for table in client.list_tables(dataset):
-                result.add_data(
+                rows.append(
                     {
                         "table_id": table.table_id,
                         "dataset_id": dataset.dataset_id,
@@ -85,8 +93,8 @@ def list_tables(params: ListTablesParams, asset: Asset):
                     }
                 )
     except Exception as exc:
-        return _failure(result, "Error listing dataset", exc)
+        return _failure(params, "Error listing dataset", exc, rows)
 
-    result.set_summary({"total_tables": len(result.get_data())})
-    result.set_status(True, "Successfully listed tables")
-    return result
+    soar.set_summary(ListTablesSummary(total_tables=len(rows)))
+    soar.set_message("Successfully listed tables")
+    return [ListTablesOutput(**row) for row in rows]

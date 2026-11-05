@@ -96,7 +96,7 @@ requires-dist = [
     { name = "google-auth", specifier = ">=2.56.0,<3" },
     { name = "google-cloud-bigquery", specifier = "==3.35.1" },
     { name = "requests", specifier = ">=2.32,<3" },
-    { name = "splunk-soar-sdk", specifier = ">=6.1.5,<7" },
+    { name = "splunk-soar-sdk", specifier = ">=7.1.2,<8" },
 ]
 
 [package.metadata.requires-dev]
@@ -1026,14 +1026,16 @@ wheels = [
 
 [[package]]
 name = "splunk-soar-sdk"
-version = "6.1.5"
+version = "7.1.2"
 source = { registry = "https://pypi.python.org/simple" }
 dependencies = [
+    { name = "anyio" },
     { name = "authlib" },
     { name = "beautifulsoup4" },
     { name = "bleach" },
     { name = "build" },
     { name = "click" },
+    { name = "cryptography" },
     { name = "distro" },
     { name = "extract-msg" },
     { name = "hatchling" },
@@ -1041,6 +1043,7 @@ dependencies = [
     { name = "httpx-retries" },
     { name = "humanize" },
     { name = "jinja2" },
+    { name = "joserfc" },
     { name = "packaging" },
     { name = "pip-licenses" },
     { name = "pydantic" },
@@ -1048,13 +1051,14 @@ dependencies = [
     { name = "requests" },
     { name = "rich" },
     { name = "setuptools" },
+    { name = "soupsieve" },
     { name = "toml" },
     { name = "tqdm" },
     { name = "typer" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/0c/a1/8a54c2d6f57fd53876c065c5b13b095d57fa3ed3ada1c59621e7f8c31cda/splunk_soar_sdk-6.1.5.tar.gz", hash = "sha256:63f05c813d288d925115aa59133cee70707074a20a1ce8a85c0ee32703b2d6ae", size = 985718, upload-time = "2026-10-14T16:10:23.494Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/a5/eb/08b6583713fb4593751f1b06e4507964df42db9c9787d04e1d037f4db0ae/splunk_soar_sdk-7.1.2.tar.gz", hash = "sha256:38293b95a8a69ae42eb20ae3d54ca2389e4ebb17af6bd489fec2702e4bdfda01", size = 1046236, upload-time = "2026-11-04T19:38:00.174Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/54/fa/0f774efb639fe7288991e27f101c303f2e77a0127d7b8c18e7d9de5fe2b2/splunk_soar_sdk-6.1.5-py3-none-any.whl", hash = "sha256:d42a45992b1f701cfbd65776454451750e047a06d089b7eb65507cbff6a6bcee", size = 226823, upload-time = "2026-10-14T16:10:21.879Z" },
+    { url = "https://files.pythonhosted.org/packages/34/4a/e23de10127483fe148f1e0858949a4611717714ba10659e8e95f27d50f82/splunk_soar_sdk-7.1.2-py3-none-any.whl", hash = "sha256:4252cbf8c8b2625b4c4318828f8d437feb0c5b8df3116a44a4057b6860300861", size = 233043, upload-time = "2026-11-04T19:37:58.528Z" },
 ]
 
 [[package]]

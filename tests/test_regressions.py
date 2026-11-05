@@ -29,7 +29,7 @@ from src.actions.make_request import BigQueryMakeRequestParams, make_request
 from src.actions.run_query import RunQueryParams, run_query
 from src.app import app, test_connectivity as connectivity_action
 from src.asset import Asset
-from src.client import LegacyFailure, create_client
+from src.client import create_client
 from src.views.query import display_query_results
 
 
@@ -45,6 +45,11 @@ def client(monkeypatch):
         module = importlib.import_module(f"src.actions.{module_name}")
         monkeypatch.setattr(module, "create_client", lambda _asset: mocked)
     return mocked
+
+
+@pytest.fixture
+def soar():
+    return MagicMock()
 
 
 def test_client_uses_asset_credentials_and_project(asset):
@@ -67,24 +72,24 @@ def test_connectivity_consumes_one_dataset_and_keeps_failure_messages(asset, mon
 
     with patch.object(app, "_build_magic_args", return_value={"asset": asset}):
         app.actions_manager.get_action("test_connectivity")({})
-    assert app.actions_manager.get_results()[-1].get_message() == ""
+    assert app.actions_manager.get_results()[-1].get_message() == "Test connectivity successful"
 
     mocked.list_datasets.side_effect = ValueError("permission denied")
-    with pytest.raises(LegacyFailure, match="Error listing datasets"):
+    with pytest.raises(ActionFailure, match="Error listing datasets"):
         connectivity_action.__wrapped__(asset)
 
 
-def test_list_tables_preserves_rows_summary_and_dataset_selection(asset, client):
+def test_list_tables_preserves_rows_summary_and_dataset_selection(asset, client, soar):
     dataset = SimpleNamespace(dataset_id="cases", project="test-project")
     table = SimpleNamespace(table_id="events", full_table_id="test-project:cases.events")
     client.dataset.return_value = dataset
     client.list_tables.return_value = [table]
 
-    result = list_tables(ListTablesParams(dataset="cases"), asset)
+    result = list_tables(ListTablesParams(dataset="cases"), soar, asset)
 
     client.dataset.assert_called_once_with("cases")
     client.list_datasets.assert_not_called()
-    assert result.get_data() == [
+    assert [row.model_dump() for row in result] == [
         {
             "table_id": "events",
             "dataset_id": "cases",
@@ -92,43 +97,43 @@ def test_list_tables_preserves_rows_summary_and_dataset_selection(asset, client)
             "full_table_id": "test-project:cases.events",
         }
     ]
-    assert result.get_summary() == {"total_tables": 1}
-    assert result.get_message() == "Successfully listed tables"
+    assert soar.set_summary.call_args.args[0].model_dump() == {"total_tables": 1}
+    soar.set_message.assert_called_once_with("Successfully listed tables")
 
     client.reset_mock()
     client.list_datasets.return_value = [SimpleNamespace(reference=dataset)]
-    list_tables(ListTablesParams(dataset=""), asset)
+    list_tables(ListTablesParams(dataset=""), soar, asset)
     client.list_datasets.assert_called_once_with()
     client.list_tables.assert_called_once_with(dataset)
 
 
-def test_query_rows_and_messages_are_preserved(asset, client):
+def test_query_rows_and_messages_are_preserved(asset, client, soar):
     job = MagicMock(job_id="job-123")
     job.result.return_value = [{"z": 2, "a": "one"}, {"z": 3, "a": "two"}]
     client.query.return_value = job
 
-    result = run_query(RunQueryParams(query="SELECT a, z", timeout="20"), asset)
+    result = run_query(RunQueryParams(query="SELECT a, z", timeout="20"), soar, asset)
 
     client.query.assert_called_once_with("SELECT a, z")
     job.result.assert_called_once_with(timeout=20)
-    assert result.get_data() == [{"z": 2, "a": "one"}, {"z": 3, "a": "two"}]
-    assert result.get_summary() == {"num_rows": 2, "job_id": "job-123"}
-    assert result.get_message() == "Successfully retrieved results from Query"
+    assert [row.model_dump() for row in result] == [{"z": 2, "a": "one"}, {"z": 3, "a": "two"}]
+    assert soar.set_summary.call_args.args[0].model_dump() == {"job_id": "job-123", "num_rows": 2}
+    soar.set_message.assert_called_once_with("Successfully retrieved results from Query")
 
     client.get_job.return_value = job
-    result = get_results(GetResultsParams(job_id="job-123", timeout=20), asset)
+    result = get_results(GetResultsParams(job_id="job-123", timeout=20), soar, asset)
     client.get_job.assert_called_once_with("job-123")
     job.result.assert_called_with(timeout=20)
-    assert result.get_summary()["job_id"] == "job-123"
+    assert soar.set_summary.call_args.args[0].model_dump()["job_id"] == "job-123"
 
 
-def test_timeout_result_keeps_job_id_in_sdk_action_result(asset, client):
+def test_timeout_result_keeps_job_id_in_sdk_action_result(asset, client, soar):
     job = MagicMock(job_id="job-123")
     job.result.side_effect = TimeoutError
     client.query.return_value = job
     params = RunQueryParams(query="SELECT 1", timeout=1)
 
-    result = run_query(params, asset)
+    result = run_query(params, soar, asset)
     assert not result.get_status()
     assert result.get_summary() == {"job_id": "job-123"}
     assert result.get_message() == (
@@ -136,24 +141,24 @@ def test_timeout_result_keeps_job_id_in_sdk_action_result(asset, client):
     )
 
     wrapped = app.actions_manager.get_action("run_query")
-    with patch.object(app, "_build_magic_args", return_value={"asset": asset}):
+    with patch.object(app, "_build_magic_args", return_value={"asset": asset, "soar": MagicMock()}):
         wrapped(params)
     assert app.actions_manager.get_results()[-1].get_summary() == {"job_id": "job-123"}
 
 
-def test_query_result_failure_keeps_job_id(asset, client):
+def test_query_result_failure_keeps_job_id(asset, client, soar):
     job = MagicMock(job_id="job-123")
     job.result.side_effect = RuntimeError("query failed")
     client.query.return_value = job
 
-    result = run_query(RunQueryParams(query="SELECT 1", timeout=20), asset)
+    result = run_query(RunQueryParams(query="SELECT 1", timeout=20), soar, asset)
 
     assert not result.get_status()
     assert result.get_summary() == {"job_id": "job-123"}
     assert result.get_message() == "Error getting results from query. Error string: 'query failed'"
 
 
-def test_query_result_iteration_failure_is_not_reported_as_success(asset, client):
+def test_query_result_iteration_failure_is_not_reported_as_success(asset, client, soar):
     def rows_with_page_error():
         yield {"id": 1}
         raise RuntimeError("page failed")
@@ -162,7 +167,7 @@ def test_query_result_iteration_failure_is_not_reported_as_success(asset, client
     job.result.return_value = rows_with_page_error()
     client.query.return_value = job
 
-    result = run_query(RunQueryParams(query="SELECT 1", timeout=20), asset)
+    result = run_query(RunQueryParams(query="SELECT 1", timeout=20), soar, asset)
 
     assert not result.get_status()
     assert result.get_data() == [{"id": 1}]
@@ -171,19 +176,19 @@ def test_query_result_iteration_failure_is_not_reported_as_success(asset, client
 
 
 @pytest.mark.parametrize("timeout", [0, -1, "", "bad"])
-def test_invalid_query_timeout_keeps_legacy_message(asset, client, timeout):
+def test_invalid_query_timeout_keeps_legacy_message(asset, client, soar, timeout):
     for action, params in (
         (run_query, RunQueryParams(query="SELECT 1", timeout=timeout)),
         (get_results, GetResultsParams(job_id="job-123", timeout=timeout)),
     ):
-        result = action(params, asset)
+        result = action(params, soar, asset)
         assert not result.get_status()
         assert result.get_message() == "Please provide a positive integer in timeout"
     client.query.assert_not_called()
     client.get_job.assert_not_called()
 
 
-def test_fractional_query_timeout_is_not_truncated(asset, client):
+def test_fractional_query_timeout_is_not_truncated(asset, client, soar):
     job = MagicMock(job_id="job-123")
     job.result.return_value = []
     client.query.return_value = job
@@ -194,19 +199,18 @@ def test_fractional_query_timeout_is_not_truncated(asset, client):
         (get_results, GetResultsParams(job_id="job-123", timeout=1.9)),
     ):
         job.result.reset_mock()
-        result = action(params, asset)
-        assert result.get_status()
+        result = action(params, soar, asset)
+        assert result == []
         job.result.assert_called_once_with(timeout=1.9)
 
 
-def test_empty_query_result_succeeds(asset, client):
+def test_empty_query_result_succeeds(asset, client, soar):
     job = MagicMock(job_id="job-123")
     job.result.return_value = []
     client.query.return_value = job
-    result = run_query(RunQueryParams(query="CREATE TABLE t (id INT64)"), asset)
-    assert result.get_status()
-    assert result.get_data() == []
-    assert result.get_summary() == {"num_rows": 0, "job_id": "job-123"}
+    result = run_query(RunQueryParams(query="CREATE TABLE t (id INT64)"), soar, asset)
+    assert result == []
+    assert soar.set_summary.call_args.args[0].model_dump() == {"num_rows": 0, "job_id": "job-123"}
 
 
 def test_query_widget_keeps_each_result_and_empty_state():

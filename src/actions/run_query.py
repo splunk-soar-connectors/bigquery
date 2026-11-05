@@ -13,7 +13,7 @@
 # limitations under the License.
 from pydantic import field_validator
 from soar_sdk import logging
-from soar_sdk.action_results import ActionResult
+from soar_sdk.abstract import SOARClient
 from soar_sdk.params import Param, Params
 
 from ..asset import Asset
@@ -43,15 +43,14 @@ class RunQueryParams(Params):
     _parse_timeout = field_validator("timeout", mode="plain")(_timeout)
 
 
-def run_query(params: RunQueryParams, asset: Asset):
-    result = ActionResult(True, "", params.model_dump(exclude_unset=True))
+def run_query(params: RunQueryParams, soar: SOARClient, asset: Asset):
     if params.timeout is not None and params.timeout <= 0:
-        return _failure(result, "Please provide a positive integer in timeout")
+        return _failure(params, "Please provide a positive integer in timeout")
     logging.progress("Running query...")
     try:
         client = create_client(asset)
     except Exception as exc:
-        return _failure(result, "Error creating client", exc)
+        return _failure(params, "Error creating client", exc)
 
     job = client.query(params.query)
-    return _query_results(result, job, params.timeout)
+    return _query_results(params, soar, job, params.timeout)

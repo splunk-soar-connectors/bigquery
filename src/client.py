@@ -15,16 +15,8 @@ import json
 
 from google.cloud import bigquery
 from google.oauth2 import service_account
-from soar_sdk.exceptions import ActionFailure
 
 from .asset import Asset
-
-
-class LegacyFailure(ActionFailure):
-    """Keep the legacy connectivity error message without an SDK prefix."""
-
-    def __str__(self) -> str:
-        return self.message
 
 
 def credentials_and_project(asset: Asset):

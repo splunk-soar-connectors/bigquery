@@ -1,6 +1,6 @@
 **Unreleased**
 
-* Converted the Big Query connector to the Splunk SOAR SDK while preserving its four existing actions and query results widget.
-* Added the authenticated BigQuery v2 make request action.
-* Updated the minimum Splunk SOAR SDK requirement to 6.1.5, supporting Python 3.13 and 3.14 on Splunk SOAR 7.0 or newer.
-* Query result retrieval now preserves the job ID when result retrieval or row iteration fails and reports those failures instead of returning truncated results as successful.
+* Converted BigQuery to the Splunk SOAR SDK. The connector now requires Splunk SOAR 7.0 or newer and Python 3.13 or 3.14.
+* Added Make Request to send authenticated HTTP requests to BigQuery v2 API endpoints not covered by the other actions.
+* Query result retrieval now reports row iteration errors as failures instead of reporting partial results as successful.
+* Removed the inaccurate string declaration for dynamic query rows at `action_result.data.*`. Query row values remain available.

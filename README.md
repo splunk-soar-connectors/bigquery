@@ -123,7 +123,6 @@ action_result.status | string | | success failure |
 action_result.message | string | | |
 action_result.parameter.job_id | string | `bigquery job id` | |
 action_result.parameter.timeout | numeric | | |
-action_result.data.\* | string | | |
 action_result.summary.job_id | string | `bigquery job id` | |
 action_result.summary.num_rows | numeric | | |
 summary.total_objects | numeric | | 1 |
@@ -151,7 +150,6 @@ action_result.status | string | | success failure |
 action_result.message | string | | |
 action_result.parameter.query | string | `bigquery query` | |
 action_result.parameter.timeout | numeric | | |
-action_result.data.\* | string | | |
 action_result.summary.job_id | string | `bigquery job id` | |
 action_result.summary.num_rows | numeric | | |
 summary.total_objects | numeric | | 1 |

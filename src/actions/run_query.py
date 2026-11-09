@@ -11,7 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from pydantic import field_validator
 from soar_sdk import logging
 from soar_sdk.abstract import SOARClient
 from soar_sdk.params import Param, Params
@@ -19,16 +18,6 @@ from soar_sdk.params import Param, Params
 from ..asset import Asset
 from ..client import create_client
 from .get_results import _failure, _query_results
-
-
-def _timeout(value):
-    if value is None:
-        return None
-    try:
-        parsed = int(value)
-    except (TypeError, ValueError, OverflowError):
-        return 0
-    return value if isinstance(value, float) and parsed > 0 else parsed
 
 
 class RunQueryParams(Params):
@@ -39,8 +28,6 @@ class RunQueryParams(Params):
         cef_types=["bigquery query"],
     )
     timeout: float | None = Param(description="How long to wait for results", required=False)
-
-    _parse_timeout = field_validator("timeout", mode="plain")(_timeout)
 
 
 def run_query(params: RunQueryParams, soar: SOARClient, asset: Asset):

@@ -13,7 +13,6 @@
 # limitations under the License.
 from concurrent.futures import TimeoutError
 
-from pydantic import field_validator
 from soar_sdk import logging
 from soar_sdk.abstract import SOARClient
 from soar_sdk.action_results import ActionOutput, ActionResult, OutputField, PermissiveActionOutput
@@ -21,16 +20,6 @@ from soar_sdk.params import Param, Params
 
 from ..asset import Asset
 from ..client import create_client
-
-
-def _timeout(value):
-    if value is None:
-        return None
-    try:
-        parsed = int(value)
-    except (TypeError, ValueError, OverflowError):
-        return 0
-    return value if isinstance(value, float) and parsed > 0 else parsed
 
 
 class GetResultsParams(Params):
@@ -41,8 +30,6 @@ class GetResultsParams(Params):
         cef_types=["bigquery job id"],
     )
     timeout: float | None = Param(description="How long to wait for results", required=False)
-
-    _parse_timeout = field_validator("timeout", mode="plain")(_timeout)
 
 
 class QueryOutput(PermissiveActionOutput):

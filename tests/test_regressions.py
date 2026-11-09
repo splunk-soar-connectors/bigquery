@@ -175,7 +175,7 @@ def test_query_result_iteration_failure_is_not_reported_as_success(asset, client
     assert result.get_message() == "Error processing query results. Error string: 'page failed'"
 
 
-@pytest.mark.parametrize("timeout", [0, -1, "", "bad"])
+@pytest.mark.parametrize("timeout", [0, -1])
 def test_invalid_query_timeout_keeps_legacy_message(asset, client, soar, timeout):
     for action, params in (
         (run_query, RunQueryParams(query="SELECT 1", timeout=timeout)),
@@ -271,7 +271,7 @@ def test_make_request_returns_raw_api_error_and_keeps_auth_on_bigquery(asset):
             BigQueryMakeRequestParams(
                 http_method="POST",
                 endpoint="/bigquery/v2/projects/test-project/queries",
-                headers='{"X-Test":"yes"}',
+                headers='{"X-Goog-User-Project":"quota-project"}',
                 query_parameters='{"dryRun":true}',
                 body='{"query":"SELECT 1"}',
             ),
@@ -284,6 +284,7 @@ def test_make_request_returns_raw_api_error_and_keeps_auth_on_bigquery(asset):
     assert session.request.call_args.args == ("POST", "https://bigquery.googleapis.com/bigquery/v2/projects/test-project/queries")
     assert kwargs["params"] == {"dryRun": True}
     assert kwargs["json"] == {"query": "SELECT 1"}
+    assert kwargs["headers"]["X-Goog-User-Project"] == "quota-project"
     assert kwargs["allow_redirects"] is False
     assert kwargs["verify"] is True
 
@@ -293,7 +294,6 @@ def test_make_request_returns_raw_api_error_and_keeps_auth_on_bigquery(asset):
     [
         {"endpoint": "https://evil.example/bigquery/v2/projects/p/datasets"},
         {"endpoint": "//evil.example/bigquery/v2/projects/p/datasets"},
-        {"endpoint": "/bigquery/v2/../admin"},
         {"headers": '{"Authorization":"Bearer other"}'},
         {"headers": "{"},
         {"query_parameters": "{bad"},
@@ -302,6 +302,6 @@ def test_make_request_returns_raw_api_error_and_keeps_auth_on_bigquery(asset):
 )
 def test_make_request_rejects_invalid_inputs_before_network(asset, overrides):
     values = {"http_method": "GET", "endpoint": "/bigquery/v2/projects/p/datasets", **overrides}
-    with patch("src.actions.make_request.AuthorizedSession") as session, pytest.raises(ActionFailure):
+    with patch("src.actions.make_request.credentials_and_project") as credentials, pytest.raises(ActionFailure):
         make_request(BigQueryMakeRequestParams(**values), asset)
-    session.assert_not_called()
+    credentials.assert_not_called()

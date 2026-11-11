@@ -1,7 +1,7 @@
 # Big Query
 
 Publisher: Splunk <br>
-Connector Version: 2.1.9 <br>
+Connector Version: 3.0.0 <br>
 Product Vendor: Google <br>
 Product Name: Big Query <br>
 Minimum Product Version: 7.0.0
